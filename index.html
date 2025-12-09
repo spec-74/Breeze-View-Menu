@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breeze View - Luxury Dining & Karaoke | Sh.Narudhoo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c9a96e;
+            --primary-light: #e3c99c;
+            --primary-dark: #b8941f;
+            --secondary: #1a1a1a;
+            --secondary-light: #2d2d2d;
+            --light: #f8f5f0;
+            --dark: #121212;
+            --gray: #8a8a8a;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.25);
+            --radius: 16px;
+            
+            /* Theme variables */
+            --bg-color: #121212;
+            --text-color: #f8f5f0;
+            --card-bg: #2d2d2d;
+            --header-bg: rgba(18, 18, 18, 0.9);
+        }
+
+        /* Light theme variables */
+        .light-theme {
+            --primary: #b8941f;
+            --primary-light: #c9a96e;
+            --primary-dark: #a07d15;
+            --secondary: #f8f9fa;
+            --secondary-light: #ffffff;
+            --light: #121212;
+            --dark: #f8f5f0;
+            --gray: #6c757d;
+            --bg-color: #f8f5f0;
+            --text-color: #121212;
+            --card-bg: #ffffff;
+            --header-bg: rgba(248, 245, 240, 0.9);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(201, 169, 110, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(26, 26, 26, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .light-theme body::before {
+            background: radial-gradient(circle at 20% 50%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(248, 245, 240, 0.03) 0%, transparent 50%);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            color: var(--text-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            gap: 12px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(201, 169, 110, 0.1);
+            color: var(--primary-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background-color: var(--header-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.7) 100%);
+            z-index: -1;
+        }
+
+        .light-theme .hero-overlay {
+            background: linear-gradient(45deg, rgba(248, 245, 240, 0.9) 0%, rgba(248, 245, 240, 0.7) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--text-color) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--gray);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Quick Info */
+        .quick-info {
+            background-color: var(--secondary);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .quick-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(201, 169, 110, 0.03) 100%);
+            pointer-events: none;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .info-card {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 169, 110, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transition: var(--transition);
+        }
+
+        .info-card:hover::before {
+            left: 100%;
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .info-card p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Menu Filter System */
+        .menu-filter-container {
+            margin-bottom: 60px;
+        }
+
+        .menu-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-chip {
+            padding: 12px 28px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color);
+        }
+
+        .light-theme .filter-chip {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-chip:hover {
+            background-color: var(--secondary);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-chip.active {
+            background-color: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+
+        .advanced-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .advanced-filter {
+            padding: 8px 20px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .light-theme .advanced-filter {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .advanced-filter:hover {
+            background-color: var(--primary);
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .advanced-filter.active {
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Menu Items */
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .menu-item {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .menu-item {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .menu-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-15px);
+            border-color: rgba(201, 169, 110, 0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .menu-item-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+
+        .menu-item-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .menu-item-content {
+            padding: 30px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .menu-item-name {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .menu-item-price {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu-item-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .menu-item-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .menu-tag {
+            padding: 6px 14px;
+            background-color: rgba(201, 169, 110, 0.1);
+            color: var(--primary-light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .menu-item-code {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 15px;
+        }
+
+        /* Photo Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 300px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: white;
+            font-size: 1.2rem;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .chef-spotlight {
+            margin-top: 50px;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+        }
+
+        .chef-spotlight h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .contact-item {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 169, 110, 0.2);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .contact-details p {
+            color: var(--gray);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            color: var(--primary-light);
+        }
+
+        .contact-link:hover::after {
+            width: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .social-links a {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: var(--secondary);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--card-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3 1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c9a96e' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .booking-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .booking-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .light-theme .booking-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .booking-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(201, 169, 110, 0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .booking-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .booking-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .booking-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .booking-card p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 80px 0 30px;
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .light-theme footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-col p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .light-theme .copyright {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--radius);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            color: var(--primary);
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(201, 169, 110, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* GST Notice */
+        .gst-notice {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            color: var(--gray);
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .gst-notice {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .gst-notice strong {
+            color: var(--primary);
+        }
+
+        /* Clickable Contact Elements */
+        .clickable-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            margin: 10px 0;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme .clickable-contact {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .clickable-contact:hover {
+            background-color: var(--primary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .clickable-contact i {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .section-title h2 {
+                font-size: 3rem;
+            }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 60px;
+                transition: var(--transition);
+                z-index: 999;
+                gap: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .menu-filter-bar {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .filter-chip {
+                flex-shrink: 0;
+            }
+            .advanced-filters {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .section {
+                padding: 80px 0;
+            }
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .booking-cards {
+                grid-template-columns: 1fr;
+            }
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            .about-img img {
+                height: 400px;
+            }
+            .theme-toggle {
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            .about-text h2 {
+                font-size: 2.2rem;
+            }
+            .booking-card {
+                padding: 40px 25px;
+            }
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            .contact-item {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Lightbox for Gallery -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <i class="fas fa-wind logo-icon"></i>
+                    Breeze<span>View</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#booking">Bookings</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-food-plate-with-avocado-and-vegetables-52583-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate">Where Luxury Meets Culinary Art</h1>
+                <p class="animate">Experience breathtaking views and exquisite flavors at Sh.Narudhoo's most prestigious dining destination. A symphony of taste, ambiance, and service awaits.</p>
+                <div class="hero-btns">
+                    <a href="#menu" class="btn animate">
+                        <i class="fas fa-utensils"></i>
+                        Explore Our Menu
+                    </a>
+                    <a href="#booking" class="btn btn-secondary animate" style="animation-delay: 0.2s;">
+                        <i class="fas fa-calendar-alt"></i>
+                        Reserve Your Experience
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="info-cards">
+                <div class="info-card animate">
+                    <i class="fas fa-clock info-icon"></i>
+                    <h3>Opening Hours</h3>
+                    <p>Everyday: 5:30 AM - 12:00 AM</p>
+                    <p>Karaoke: 9:00 AM - 12:00 AM</p>
+                </div>
+                <div class="info-card animate" style="animation-delay: 0.1s;">
+                    <i class="fas fa-map-marker-alt info-icon"></i>
+                    <h3>Location</h3>
+                    <p>Sh.Narudhoo, Maldives</p>
+                    <p>Perfect spot for ocean breezes and good food</p>
+                </div>
+                <div class="info-card animate" style="animation-delay: 0.2s;">
+                    <i class="fas fa-star info-icon"></i>
+                    <h3>Chill & Relax</h3>
+                    <p>Cozy atmosphere, island vibes</p>
+                    <p>Perfect spot to unwind</p>
+                </div>
+                <div class="info-card animate" style="animation-delay: 0.3s;">
+                    <i class="fas fa-music info-icon"></i>
+                    <h3>Karaoke Lounge</h3>
+                    <p>Grab the mic, bring the energy</p>
+                    <p>Perfect for groups, parties & fun nights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Menu -->
+    <section class="section" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Signature Menu</h2>
+                <p>Each dish is a masterpiece, crafted with the finest ingredients and traditional techniques</p>
+            </div>
+            
+            <div class="menu-filter-container">
+                <div class="menu-filter-bar">
+                    <div class="filter-chip active" data-filter="all">
+                        <i class="fas fa-th-large"></i>
+                        All Dishes
+                    </div>
+                    <div class="filter-chip" data-filter="category">
+                        <i class="fas fa-list"></i>
+                        By Category
+                    </div>
+                    <div class="filter-chip" data-filter="chef">
+                        <i class="fas fa-award"></i>
+                        Chef's Special
+                    </div>
+                    <div class="filter-chip" data-filter="spicy">
+                        <i class="fas fa-fire"></i>
+                        Spicy Favorites
+                    </div>
+                </div>
+                
+                <div class="advanced-filters" id="advancedFilters">
+                    <!-- Advanced filters will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="menu-items" id="menuItems">
+                <!-- Menu items will be generated by JavaScript -->
+            </div>
+            
+            <div class="gst-notice">
+                <p><strong>Note:</strong> All prices include 8% GST as per the updated menu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motion Photo Gallery -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Ambiance</h2>
+                <p>Step into our world of luxury dining and entertainment</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-index="0">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Restaurant Interior">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Luxury Dining Area</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Signature Dish">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Signature Tuna Dish</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Waterfront View">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Breathtaking Waterfront</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Karaoke Lounge">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Premium Karaoke Lounge</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chef's Special">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Chef's Special Platter</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Evening Atmosphere">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">Evening Ambiance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-img animate">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Our Story">
+                </div>
+                <div class="about-text animate" style="animation-delay: 0.2s;">
+                    <h2>The Breeze View Story</h2>
+                    <p>Born from a passion for exceptional dining and breathtaking views, Breeze View Restaurant has been the crown jewel of Sh.Narudhoo since our inception. We believe that dining is not just about food, but about creating memorable experiences.</p>
+                    <p>Our philosophy combines traditional Maldivian culinary heritage with modern techniques, using only the freshest locally-sourced ingredients. Each dish tells a story of our islands' rich culture and abundant natural resources.</p>
+                    
+                    <div class="chef-spotlight">
+                        <h3>Meet Our Head Chef</h3>
+                        <p>With over 20 years of international culinary experience, Chef Ahmed brings innovation and passion to every plate. His expertise in blending traditional flavors with contemporary presentation has earned us numerous accolades.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="section booking-section" id="booking">
+        <div class="container">
+            <div class="section-title">
+                <h2>Book Your Experience</h2>
+                <p>Secure your table or karaoke room with a simple click</p>
+            </div>
+            
+            <div class="booking-cards">
+                <div class="booking-card animate">
+                    <div class="booking-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Restaurant Reservation</h3>
+                    <p>Experience our premium dining with breathtaking ocean views. Reserve your table for an unforgettable culinary journey.</p>
+                    
+                    <a href="mailto:breezeview2024@gmail.com?subject=Restaurant Reservation&body=Hello, I would like to make a reservation. Please contact me with available times.%0D%0A%0D%0AName:%0D%0APreferred Date:%0D%0ANumber of Guests:%0D%0ASpecial Requests:" class="btn">
+                        <i class="fas fa-envelope"></i>
+                        Email to Reserve
+                    </a>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="tel:9253535" class="clickable-contact">
+                            <i class="fas fa-phone"></i>
+                            Call Now: 9253535
+                        </a>
+                        <p style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
+                            One click to call for immediate assistance
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="booking-card animate" style="animation-delay: 0.2s;">
+                    <div class="booking-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Karaoke Room Booking</h3>
+                    <p>Unleash your inner superstar in our state-of-the-art karaoke lounge. Perfect for parties, celebrations, or fun nights out.</p>
+                    
+                    <a href="mailto:breezeview2024@gmail.com?subject=Karaoke Room Booking&body=Hello, I would like to book a karaoke room.%0D%0A%0D%0AName:%0D%0APreferred Date & Time:%0D%0ANumber of People:%0D%0ARoom Preference (Standard/VIP/Party):%0D%0ASong Requests:" class="btn">
+                        <i class="fas fa-envelope"></i>
+                        Email to Book
+                    </a>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="tel:9253535" class="clickable-contact">
+                            <i class="fas fa-phone"></i>
+                            Call Now: 9253535
+                        </a>
+                        <p style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
+                            One click to call for immediate assistance
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with us for any inquiries or special requests</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item animate">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Our Location</h3>
+                            <p>Sh.Narudhoo, Maldives</p>
+                            <p>Waterfront dining with panoramic ocean views</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item animate" style="animation-delay: 0.1s;">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone & WhatsApp</h3>
+                            <p>For reservations and inquiries</p>
+                            <div style="margin-top: 15px;">
+                                <a href="tel:9253535" class="clickable-contact">
+                                    <i class="fas fa-phone"></i>
+                                    Call: 9253535
+                                </a>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="https://wa.me/9609253535" class="clickable-contact">
+                                    <i class="fab fa-whatsapp"></i>
+                                    WhatsApp: 9253535
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item animate" style="animation-delay: 0.2s;">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Us</h3>
+                            <p>For detailed inquiries and special requests</p>
+                            <div style="margin-top: 15px;">
+                                <a href="mailto:breezeview2024@gmail.com" class="clickable-contact">
+                                    <i class="fas fa-envelope"></i>
+                                    breezeview2024@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links animate" style="animation-delay: 0.3s;">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="TripAdvisor"><i class="fab fa-tripadvisor"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Breeze View</h3>
+                    <p>Experience the pinnacle of luxury dining and entertainment at Sh.Narudhoo's most prestigious destination. Where every moment becomes a cherished memory.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Signature Menu</a></li>
+                        <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Our Story</a></li>
+                        <li><a href="#booking"><i class="fas fa-chevron-right"></i> Bookings</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Hours & Info</h3>
+                    <p><strong>Restaurant:</strong><br>Everyday: 5:30 AM - 12:00 AM</p>
+                    <p><strong>Karaoke Lounge:</strong><br>6:00 PM - 12:00 AM</p>
+                    <p><strong>Location:</strong><br>Sh.Narudhoo, Maldives</p>
+                    <div style="margin-top: 15px;">
+                        <a href="tel:9253535" class="clickable-contact" style="display: inline-flex; padding: 8px 16px;">
+                            <i class="fas fa-phone"></i>
+                            Call: 9253535
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Breeze View Restaurant. All Rights Reserved. | All prices include 8% GST | Crafted with <i class="fas fa-heart" style="color: var(--primary);"></i> in Maldives</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete Menu Data - Combined from both menus
+        const completeMenuData = {
+            "Tea & Coffee": {
+                duration: "05-10 minutes",
+                items: [
+                    { code: "101", name: "Lavazza Black", price: "25", desc: "Premium black coffee", image: "https://images.unsplash.com/photo-1621555470436-d36e9683bae5?q=80&w=3465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "102", name: "Lavazza Espresso", price: "25", desc: "Italian espresso", image: "https://plus.unsplash.com/premium_photo-1675435644687-562e8042b9db?q=80&w=1349&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "103", name: "Lavazza Espresso (Double)", price: "50", desc: "Double shot of Italian espresso", image: "https://images.unsplash.com/photo-1655933146725-c51714b6c973?q=80&w=1289&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "104", name: "Lavazza Milk", price: "35", desc: "Coffee with milk", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", tags: ["beverage", "non-spicy"] },
+                    { code: "105", name: "Lavazza Cappuccino", price: "35", desc: "Italian cappuccino", image: "https://plus.unsplash.com/premium_photo-1664206964650-8b8bfa07a41f?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "106", name: "Lavazza Hot Chocolate", price: "35", desc: "Rich hot chocolate", image: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "107", name: "Ily Black", price: "25", desc: "Premium black coffee", image: "https://images.unsplash.com/photo-1705952285570-113e76f63fb0?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "108", name: "Ily Espresso (Single)", price: "25", desc: "Single shot espresso", image: "https://images.unsplash.com/photo-1610889556528-9a770e32642f?q=80&w=2815&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "109", name: "Ily Espresso (Double)", price: "50", desc: "Double shot espresso", image: "https://images.unsplash.com/photo-1664142638093-9a78da96c425?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "110", name: "Ily Cappuccino", price: "35", desc: "Italian cappuccino", image: "https://images.unsplash.com/photo-1517958911667-09c05f6cd698?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "111", name: "Ily Milk", price: "35", desc: "Coffee with milk", image: "https://images.unsplash.com/photo-1587276431019-b097d3028c62?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "112", name: "Black Coffee (Half)", price: "7", desc: "Half portion black coffee", image: "https://images.unsplash.com/photo-1631305588811-3f8c5a222317?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "113", name: "Black coffee (Full)", price: "12", desc: "Full portion black coffee", image: "https://images.unsplash.com/photo-1594060445139-717b4b8b3a37?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "114", name: "Milk Coffee (half)", price: "8", desc: "Half portion coffee with milk", image: "https://images.unsplash.com/photo-1547240089-0b75465f8e80?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "115", name: "Milk Coffee (Full)", price: "10", desc: "Full portion coffee with milk", image: "https://images.unsplash.com/photo-1738824747118-d06c2bbcb990?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "116", name: "Yeye Packet Coffee", price: "8", desc: "Traditional packet coffee", image: "https://images.unsplash.com/photo-1615486780246-76e6bb33e8b5?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "117", name: "Yeye packet (Hard)", price: "12", desc: "Strong traditional packet coffee", image: "https://images.unsplash.com/photo-1637085046560-43cc153c86e0?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "118", name: "Ice Coffee", price: "25", desc: "Chilled coffee beverage", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "119", name: "Black Tea", price: "5", desc: "Classic black tea", image: "https://images.unsplash.com/photo-1617543414010-212c4537604d?q=80&w=2346&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "120", name: "Dhiyaa Kiru Coffee", price: "12", desc: "Traditional Maldivian coffee", image: "https://images.pexels.com/photos/34967000/pexels-photo-34967000.jpeg?_gl=1*1ex2ltb*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ0OTU4ODckbzIkZzEkdDE3NjQ0OTU5MDYkajQxJGwwJGgw", tags: ["beverage", "non-spicy"] },
+                    { code: "121", name: "Bombay Tea", price: "20", desc: "Indian-style tea", image: "https://images.unsplash.com/photo-1634299406775-90f32b656536?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "122", name: "Masala Tea", price: "20", desc: "Spiced Indian tea", image: "https://images.unsplash.com/photo-1559275117-d096eb5d85b2?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "spicy"] },
+                    { code: "123", name: "Strawberry Tea", price: "20", desc: "Fruity strawberry tea", image: "https://images.unsplash.com/photo-1597318181412-49af291f617f?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "124", name: "Cardamom Tea", price: "20", desc: "Tea with cardamom flavor", image: "https://images.unsplash.com/photo-1683533699004-7f6b9e5a073f?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "125", name: "Cinnamon Tea", price: "20", desc: "Tea with cinnamon flavor", image: "https://images.unsplash.com/photo-1643067077447-78239a403a18?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "126", name: "Lemon Tea", price: "20", desc: "Tea with lemon", image: "https://images.unsplash.com/photo-1664344589345-a60139995adc?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "127", name: "Ginger Tea", price: "20", desc: "Tea with ginger", image: "https://images.pexels.com/photos/34928358/pexels-photo-34928358.jpeg?_gl=1*1ro7m7l*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ0OTU4ODckbzIkZzEkdDE3NjQ0OTcyMTUkajE0JGwwJGhw", tags: ["beverage", "non-spicy"] },
+                    { code: "128", name: "Ice lemon Tea", price: "35", desc: "Chilled lemon tea", image: "https://images.unsplash.com/photo-1643660090242-6a7322d18be9?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "129", name: "Buhkiru", price: "10", desc: "Traditional beverage", image: "https://plus.unsplash.com/premium_photo-1694481100260-5f6176e7743c?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "130", name: "Ice Milk", price: "35", desc: "Chilled milk", image: "https://static.vecteezy.com/system/resources/previews/070/226/382/large_2x/a-glass-of-milk-with-a-white-substance-in-it-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "131", name: "Water 500ml", price: "7", desc: "Bottled water 500ml", image: "https://s3-ap-southeast-1.amazonaws.com/sun.assets/uploads/l_2021_07_11_022708_6m8lb7w4exagcitrq9huyjp3kf2sov5n1dz_EN_.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "132", name: "Water 1.5L", price: "15", desc: "Bottled water 1.5L", image: "https://sunswell.usa72.mega--cloud.com/uploads/image/664ac7298b796.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "133", name: "Lemon Tea (Normal)", price: "10", desc: "Regular lemon tea", image: "https://images.unsplash.com/photo-1664344589345-a60139995adc?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "134", name: "Ginger Tea (Normal)", price: "10", desc: "Regular ginger tea", image: "https://images.pexels.com/photos/34928358/pexels-photo-34928358.jpeg?_gl=1*1ro7m7l*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ0OTU4ODckbzIkZzEkdDE3NjQ0OTcyMTUkajE0JGwwJGhw", tags: ["beverage", "non-spicy"] },
+                    { code: "135", name: "Hot Milo", price: "15", desc: "Hot chocolate malt drink", image: "https://static.vecteezy.com/system/resources/previews/073/572/212/large_2x/person-holding-a-steaming-glass-mug-filled-with-a-warm-chocolate-beverage-indoors-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "136", name: "Milk Tea", price: "15", desc: "Tea with milk", image: "https://img.freepik.com/free-photo/front-view-milk-tea-concept-with-cinnamon_23-2148555194.jpg?t=st=1764578351~exp=1764581951~hmac=e021cdc3f8835461a9d912fdbdd136f1c57d157b800d036425c8ea5c548cb7ff&w=2000", tags: ["beverage", "non-spicy"] },
+                    { code: "137", name: "YeYe Cereal", price: "15", desc: "Traditional cereal drink", image: "https://images.unsplash.com/photo-1551185618-07fd482ff86e?q=80&w=2842&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] }
+                ]
+            },
+            "Juices & Soft Drinks": {
+                duration: "",
+                items: [
+                    { code: "138", name: "Lime Juice Fresh", price: "35", desc: "Freshly squeezed lime juice", image: "https://static.vecteezy.com/system/resources/previews/055/355/200/large_2x/cool-limeade-juice-with-vibrant-green-background-for-summer-refreshment-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "139", name: "Apple Juice", price: "35", desc: "Fresh apple juice", image: "https://static.vecteezy.com/system/resources/previews/072/261/906/large_2x/fresh-apple-juice-in-glass-with-apples-on-white-rustic-wooden-table-diet-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "140", name: "Orange Juice", price: "35", desc: "Fresh orange juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", tags: ["beverage", "non-spicy"] },
+                    { code: "141", name: "Pineapple Juice", price: "35", desc: "Fresh pineapple juice", image: "https://static.vecteezy.com/system/resources/previews/039/892/454/non_2x/ai-generated-slices-of-pineapple-and-pineapple-juice-served-in-glassware-on-a-wooden-table-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "142", name: "Passion Fruit Juice", price: "35", desc: "Fresh passion fruit juice", image: "https://static.vecteezy.com/system/resources/previews/069/823/929/non_2x/passion-fruit-drink-refreshing-cocktail-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "143", name: "Watermelon Juice", price: "35", desc: "Fresh watermelon juice", image: "https://static.vecteezy.com/system/resources/previews/031/689/949/non_2x/fresh-watermelon-juice-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "144", name: "Kurunbaa Fani", price: "35", desc: "Traditional fruit juice", image: "https://static.vecteezy.com/system/resources/previews/020/113/475/large_2x/fresh-coconut-drinking-juice-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "145", name: "Guava Juice", price: "35", desc: "Fresh guava juice", image: "https://static.vecteezy.com/system/resources/previews/005/857/610/large_2x/guava-juice-is-served-on-a-wooden-background-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "146", name: "Papaya Juice", price: "35", desc: "Fresh papaya juice", image: "https://static.vecteezy.com/system/resources/previews/026/860/141/non_2x/of-a-refreshing-glass-of-orange-juice-next-to-a-vibrant-cut-in-half-papaya-with-copy-space-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "147", name: "Carrot Juice", price: "35", desc: "Fresh carrot juice", image: "https://static.vecteezy.com/system/resources/previews/037/041/630/large_2x/ai-generated-carrot-juice-recipes-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "148", name: "Mango Juice", price: "35", desc: "Fresh mango juice", image: "https://static.vecteezy.com/system/resources/previews/037/334/282/large_2x/ai-generated-refreshing-mango-juice-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "149", name: "Sun quick Juice", price: "20", desc: "Mixed fruit juice", image: "https://static.vecteezy.com/system/resources/previews/073/573/349/non_2x/tall-glass-of-vibrant-citrus-beverage-sits-beside-an-assortment-of-fresh-whole-and-halved-fruits-upon-a-sunlit-wooden-surface-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "150", name: "Ice milo", price: "35", desc: "Chilled chocolate malt drink", image: "https://images.pexels.com/photos/4869291/pexels-photo-4869291.jpeg?_gl=1*roj4gr*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ1Nzc1MjIkbzQkZzEkdDE3NjQ1ODE4MDEkajE4JGwwJGhw", tags: ["beverage", "non-spicy"] },
+                    { code: "151", name: "Coca Cola 500ml", price: "25", desc: "500ml Coca Cola", image: "https://static.vecteezy.com/system/resources/previews/043/098/850/large_2x/ai-generated-refreshing-cola-delight-a-close-up-view-of-a-sparkling-cola-drink-with-glistening-ice-cubes-created-with-generative-ai-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "152", name: "Coca Cola 200ml", price: "20", desc: "200ml Coca Cola", image: "https://static.vecteezy.com/system/resources/previews/060/214/782/non_2x/refreshing-rum-and-coke-cocktail-with-ice-and-lime-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "153", name: "Sprite 200ml", price: "20", desc: "200ml Sprite", image: "https://static.vecteezy.com/system/resources/previews/074/086/030/non_2x/refreshing-lime-drink-served-with-fresh-limes-on-a-light-blue-background-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "154", name: "Pepsi 200ml", price: "20", desc: "200ml Pepsi", image: "https://static.vecteezy.com/system/resources/previews/027/101/244/large_2x/a-glass-of-cola-with-ice-against-a-red-background-provides-a-refreshing-beverage-option-with-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "155", name: "7up 200ml", price: "20", desc: "200ml Zup", image: "https://static.vecteezy.com/system/resources/previews/071/804/326/non_2x/a-glass-of-water-with-lime-slices-in-it-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "156", name: "Fanta Orange 500ml", price: "25", desc: "500ml Fanta Orange", image: "https://static.vecteezy.com/system/resources/previews/073/354/066/non_2x/tall-glass-containing-chilled-amber-liquid-garnished-with-citrus-slice-stands-against-a-dark-background-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "157", name: "Fanta Strawberry 500ml", price: "25", desc: "500ml Fanta Strawberry", image: "https://static.vecteezy.com/system/resources/previews/070/169/574/non_2x/refreshing-red-drink-with-ice-in-glass-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "158", name: "Mountain Dew", price: "20", desc: "Mountain Dew", image: "https://images.unsplash.com/photo-1647708625815-b26b5ad4114c?q=80&w=2348&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "159", name: "Mirinda Orange", price: "20", desc: "Mirinda Orange", image: "https://mma.prnewswire.com/media/2070906/PepsiCo_Mirinda.jpg?p=publish", tags: ["beverage", "non-spicy"] },
+                    { code: "160", name: "Bitter Lemon", price: "20", desc: "Bitter Lemon", image: "https://plus.unsplash.com/premium_photo-1664392090012-c0a7268964f4?q=80&w=1359&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "161", name: "XL Energy drink 150ml", price: "30", desc: "150ml XL Energy drink", image: "https://static.yango.tech/avatars/get-grocery-goods/2998515/1af1496b-1e0a-4bd2-aa47-fd8a448d37c3/928x928-webp", tags: ["beverage", "non-spicy"] },
+                    { code: "162", name: "XL Energy drink 250ml", price: "40", desc: "250ml XL Energy drink", image: "https://m.media-amazon.com/images/M/MV5BYTEwN2Q0YmYtMjJlMy00MDNjLWFjZDUtMjc1YjY3NDcxNDcxXkEyXkFqcGc@._V1_FMjpg_UX1200_.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "163", name: "Red Bull Energy Drink", price: "65", desc: "Red Bull Energy Drink", image: "https://images.unsplash.com/photo-1613218222876-954978a4404e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
+                    { code: "164", name: "Kabisa", price: "40", desc: "Energy Drink", image: "https://tnsconsumer.mu/wp-content/uploads/2021/11/Kabisa-81-768x512.jpg", tags: ["beverage", "non-spicy"] }
+                ]
+            },
+            "Milkshakes": {
+                duration: "05-10 minutes",
+                items: [
+                    { code: "165", name: "Chocolate Milkshake", price: "55", desc: "Creamy chocolate milkshake", image: "https://static.vecteezy.com/system/resources/previews/032/935/471/non_2x/chocolate-milkshake-on-a-table-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "166", name: "Strawberry Milkshake", price: "55", desc: "Refreshing strawberry milkshake", image: "https://static.vecteezy.com/system/resources/previews/040/474/737/non_2x/ai-generated-a-strawberry-milkshake-topped-with-whipped-cream-and-a-fresh-strawberry-on-the-rim-of-the-glass-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "167", name: "Vanilla Milkshake", price: "55", desc: "Classic vanilla milkshake", image: "https://static.vecteezy.com/system/resources/previews/034/850/883/non_2x/ai-generated-a-gourmet-meal-on-a-wooden-table-wine-and-candle-generated-by-ai-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "168", name: "Avocado Milkshake", price: "55", desc: "Creamy avocado milkshake", image: "https://static.vecteezy.com/system/resources/previews/057/160/590/non_2x/delicious-avocado-smoothie-with-fresh-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "169", name: "Oreo Milkshake", price: "55", desc: "Milkshake with Oreo cookies", image: "https://static.vecteezy.com/system/resources/previews/035/031/216/non_2x/ai-generated-smiling-man-illuminated-city-confident-enjoying-nightlife-looking-at-camera-generated-by-ai-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "170", name: "Banana Milkshake", price: "55", desc: "Creamy banana milkshake", image: "https://static.vecteezy.com/system/resources/previews/058/228/667/non_2x/delicious-banana-cream-shake-topped-with-whipped-cream-and-caramel-syrup-garnished-with-fresh-banana-slices-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "171", name: "Coke float", price: "55", desc: "Coke with ice cream", image: "https://static.vecteezy.com/system/resources/previews/040/474/750/non_2x/ai-generated-a-delightful-of-a-root-beer-float-with-a-scoop-of-vanilla-ice-cream-floating-in-a-glass-of-bubbly-root-beer-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "172", name: "Ice Coffee with Ice Cream", price: "55", desc: "Iced coffee with ice cream", image: "https://static.vecteezy.com/system/resources/previews/072/849/512/non_2x/delicious-coffee-ice-cream-drink-served-in-a-glass-with-spoon-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "173", name: "Ice Milo with Ice Cream", price: "55", desc: "Iced Milo with ice cream", image: "https://static.vecteezy.com/system/resources/previews/069/502/097/large_2x/a-milkshake-with-whipped-cream-and-nuts-on-top-free-photo.jpg", tags: ["beverage", "non-spicy"] }
+                ]
+            },
+            "Ice Cream": {
+                duration: "",
+                items: [
+                    { code: "174", name: "Strawberry Single Scoop", price: "25", desc: "Single scoop strawberry ice cream", image: "https://static.vecteezy.com/system/resources/previews/073/752/006/non_2x/scooping-strawberry-ice-cream-from-metal-tray-with-fresh-strawberries-free-photo.jpg", tags: ["dessert", "non-spicy"] },
+                    { code: "175", name: "Vanilla Single Scoop", price: "25", desc: "Single scoop vanilla ice cream", image: "https://static.vecteezy.com/system/resources/previews/045/891/380/non_2x/a-cup-of-ice-cream-with-spoon-free-photo.jpeg", tags: ["dessert", "non-spicy"] },
+                    { code: "176", name: "Chocolate Single Scoop", price: "25", desc: "Single scoop chocolate ice cream", image: "https://static.vecteezy.com/system/resources/previews/073/785/001/large_2x/close-up-of-chocolate-ice-cream-in-cup-with-spoon-free-photo.jpg", tags: ["dessert", "non-spicy"] }
+                ]
+            },
+            "Mojito Cocktail": {
+                duration: "",
+                items: [
+                    { code: "177", name: "Blue Lagoon Mojito", price: "50", desc: "Refreshing blue mojito", image: "https://static.vecteezy.com/system/resources/previews/056/399/057/non_2x/refreshing-blue-cocktail-with-lime-and-mint-garnish-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "178", name: "Pinacolado Mojito", price: "50", desc: "Pina colada style mojito", image: "https://static.vecteezy.com/system/resources/previews/072/782/828/non_2x/a-tropical-summer-drink-with-pineapple-slices-and-mint-resting-on-a-wooden-surface-under-diffused-natural-light-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "179", name: "Mojito Cocktail Mint", price: "50", desc: "Classic mint mojito", image: "https://static.vecteezy.com/system/resources/previews/033/168/625/large_2x/mojito-cocktail-with-lime-and-mint-on-wooden-table-ai-generative-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "180", name: "Mojito Cocktail Mix berry", price: "50", desc: "Mixed berry mojito", image: "https://static.vecteezy.com/system/resources/previews/046/349/197/non_2x/juicy-blackberry-flavor-for-print-design-inspiration-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "181", name: "Mojito Cocktail Strawberry", price: "50", desc: "Strawberry mojito", image: "https://static.vecteezy.com/system/resources/previews/071/365/410/non_2x/a-red-drink-with-lime-and-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "182", name: "Mojito Cocktail Passion Fruit", price: "50", desc: "Passion fruit mojito", image: "https://static.vecteezy.com/system/resources/previews/066/628/063/non_2x/mojito-cocktail-passion-fruit-caribbean-style-at-sunset-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "183", name: "Mojito Cocktail Black Current", price: "50", desc: "Black currant mojito", image: "https://static.vecteezy.com/system/resources/previews/046/349/141/large_2x/juicy-blackberry-juice-illustrations-for-creative-projects-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "184", name: "Mojito Cocktail blue curacao", price: "50", desc: "Blue curacao mojito", image: "https://static.vecteezy.com/system/resources/previews/070/274/937/non_2x/blue-cocktail-with-lime-and-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "185", name: "Bull bluster (Red bull)", price: "100", desc: "Red bull cocktail", image: "https://www.thebottleclub.com/cdn/shop/articles/Vodka_Red_Bull.jpg?v=1703659513&width=2260", tags: ["beverage", "non-spicy"] },
+                    { code: "186", name: "Breeze View Passiflora", price: "100", desc: "Special passion fruit cocktail", image: "https://static.vecteezy.com/system/resources/previews/071/366/358/non_2x/three-glasses-of-lemonade-with-lime-slices-and-mint-leaves-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
+                    { code: "187", name: "Sunset Orange", price: "50", desc: "Orange sunset cocktail", image: "https://static.vecteezy.com/system/resources/previews/073/573/312/non_2x/vibrant-layered-cocktail-garnished-with-citrus-and-herbs-rests-on-a-dark-bar-surface-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
+                    { code: "188", name: "Fruit Punch", price: "70", desc: "Mixed fruit punch", image: "https://static.vecteezy.com/system/resources/previews/073/572/208/non_2x/tall-glass-of-refreshing-red-fruit-beverage-sits-surrounded-by-fresh-whole-and-cut-fruits-on-a-wooden-surface-free-photo.jpeg", tags: ["beverage", "non-spicy"] }
+                ]
+            },
+            "Short Eats": {
+                duration: "",
+                items: [
+                    { code: "189", name: "Short eats", price: "3", desc: "Assorted short eats", image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHH1acluRCvEA/articleshare-shrink_800/articleshare-shrink_800/0/1727891611469?e=2147483647&v=beta&t=V7OMncAID_K-Z8wLrJxbAk8i13I9b8g1NtJnVwQ3wTA", tags: ["snack", "non-spicy"] },
+                    { code: "190", name: "Boiled Egg", price: "6", desc: "Boiled egg", image: "https://static.vecteezy.com/system/resources/previews/005/668/038/non_2x/eggs-menu-food-boiled-eggs-in-a-white-plate-decorated-with-leaves-green-dill-and-parsley-cut-in-half-egg-yolks-for-cooking-healthy-eating-eggs-breakfast-free-photo.JPG", tags: ["snack", "non-spicy"] },
+                    { code: "191", name: "Sausage", price: "6", desc: "Sausage", image: "https://static.vecteezy.com/system/resources/previews/024/533/669/non_2x/grilled-sausages-on-a-wooden-board-illustration-ai-generative-free-photo.jpg", tags: ["snack", "non-spicy"] },
+                    { code: "192", name: "Cream Bun", price: "5", desc: "Cream filled bun", image: "https://lonumedhu.com/sites/default/files/Cream%20Jehi%20Banas.jpg", tags: ["snack", "non-spicy"] },
+                    { code: "193", name: "Biscuits", price: "6", desc: "Assorted biscuits", image: "https://static.vecteezy.com/system/resources/previews/006/360/631/large_2x/breakfast-cookies-vanilla-on-banana-leaf-and-wooden-background-mini-cookies-biscuits-free-photo.JPG", tags: ["snack", "non-spicy"] },
+                    { code: "194", name: "Bileth Ari (Nuts)", price: "10", desc: "Traditional or OG after-meal snack", image: "https://lonumedhu.com/sites/default/files/Dhufun%201.jpg", tags: ["snack", "non-spicy"] }
+                ]
+            },
+            "Breakfast": {
+                duration: "20-60 minutes",
+                items: [
+                    { code: "250", name: "Disc Mashuni", price: "55", desc: "Traditional Maldivian breakfast dish", image: "https://maldivesfinest.com/wp-content/uploads/2015/12/disc-mashuni.jpg", tags: ["breakfast", "traditional", "spicy"] },
+                    { code: "251", name: "Roshi Mashuni (Barabo/Faith/Aluvi)", price: "55", desc: "Flatbread with fish mixture", image: "https://lonumedhu.com/sites/default/files/Aluvi%20Mashuni1.jpg", tags: ["breakfast", "traditional", "spicy"] },
+                    { code: "252", name: "Roshi Mashuni (5 Roshi)", price: "55", desc: "Five pieces of flatbread with fish mixture", image: "https://lonumedhu.com/sites/default/files/rai-mashuni-cover.jpg", tags: ["breakfast", "traditional", "spicy"] },
+                    { code: "253", name: "Disc Rihaakuru (5 Roshi)", price: "55", desc: "Five pieces of flatbread with fish paste", image: "https://lonumedhu.com/sites/default/files/Theluli%20Rihaakuru.jpg", tags: ["breakfast", "traditional", "spicy"] },
+                    { code: "254", name: "Roshi Kulhimas (5 Roshi)", price: "55", desc: "Five pieces of flatbread with tuna mixture", image: "https://lonumedhu.com/sites/default/files/Top-Shot-easy-kulhimas.jpg", tags: ["breakfast", "traditional", "spicy"] },
+                    { code: "255", name: "Continental Breakfast", price: "55", desc: "Classic continental breakfast", image: "https://www.godsavethepoints.com/wp-content/uploads/2018/07/full-english-1024x576.jpg", tags: ["breakfast", "non-spicy"] },
+                    { code: "256", name: "Roshi", price: "3", desc: "Traditional Maldivian flatbread", image: "https://maldivestravelinsider.com/wp-content/uploads/2025/06/Roshi-edited.webp", tags: ["breakfast", "traditional"] },
+                    { code: "257", name: "Disc", price: "10", desc: "Traditional Maldivian bread", image: "https://lonumedhu.com/sites/default/files/HuniRoshiSmall.jpg", tags: ["breakfast", "traditional"] },
+                    { code: "258", name: "Paratha (Ready made)", price: "15", desc: "Ready-made layered flatbread", image: "https://static.vecteezy.com/system/resources/previews/073/352/080/non_2x/stack-of-freshly-cooked-flatbread-rests-upon-a-rustic-wooden-serving-board-against-a-bright-white-background-free-photo.jpeg", tags: ["breakfast", "non-spicy"] },
+                    { code: "259", name: "Normal Omelet", price: "20", desc: "Classic egg omelet", image: "https://static.vecteezy.com/system/resources/previews/004/052/505/non_2x/spanish-omelette-on-white-plate-free-photo.jpg", tags: ["breakfast", "non-spicy"] },
+                    { code: "260", name: "Cheese Omelet", price: "35", desc: "Omelet with cheese filling", image: "https://images.pexels.com/photos/12310569/pexels-photo-12310569.jpeg?_gl=1*ccb108*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ3NTUxNjEkbzkkZzEkdDE3NjQ3NTg0OTUkajIxJGwwJGhw", tags: ["breakfast", "non-spicy"] },
+                    { code: "261", name: "Sausage Omelet", price: "35", desc: "Omelet with sausage", image: "https://cdn.mos.cms.futurecdn.net/uk8uBijmNKc3dRNfyMagrJ-1920-80.jpg.webp", tags: ["breakfast", "non-spicy"] },
+                    { code: "262", name: "Masala Omelet", price: "35", desc: "Spiced Indian-style omelet", image: "https://static.vecteezy.com/system/resources/previews/073/836/395/non_2x/folded-omelet-with-spinach-and-red-pepper-filling-breakfast-free-photo.jpg", tags: ["breakfast", "spicy"] },
+                    { code: "263", name: "Scrambled egg", price: "35", desc: "Fluffy scrambled eggs", image: "https://static.vecteezy.com/system/resources/previews/026/565/154/large_2x/scrambled-eggsgraphy-foodgraphy-ai-generated-free-photo.jpg", tags: ["breakfast", "non-spicy"] }
+                ]
+            },
+            "Salads & Soups": {
+                duration: "20-45 minutes",
+                items: [
+                    { code: "264", name: "Normal Salads", price: "55", desc: "Fresh garden salad", image: "https://static.vecteezy.com/system/resources/previews/071/516/968/non_2x/fresh-vegetable-salad-with-lettuce-and-tomatoes-free-photo.jpg", tags: ["salad", "vegetarian", "non-spicy"] },
+                    { code: "265", name: "Tuna Salads", price: "55", desc: "Salad with fresh tuna", image: "https://static.vecteezy.com/system/resources/previews/012/471/371/non_2x/tuna-salad-on-the-plate-and-white-background-free-photo.jpg", tags: ["salad", "non-spicy"] },
+                    { code: "266", name: "Chicken Salads", price: "55", desc: "Salad with grilled chicken", image: "https://static.vecteezy.com/system/resources/previews/012/474/862/non_2x/chicken-salad-on-the-plate-and-white-background-free-photo.jpg", tags: ["salad", "non-spicy"] },
+                    { code: "400", name: "Tuna Noodles Soup", price: "55", desc: "Noodle soup with tuna", image: "https://static.vecteezy.com/system/resources/previews/069/694/465/large_2x/comforting-bowl-of-savory-noodle-soup-with-fresh-ingredients-free-photo.jpg", tags: ["soup", "non-spicy"] },
+                    { code: "401", name: "Chicken Noodles Soup", price: "55", desc: "Noodle soup with chicken", image: "https://static.vecteezy.com/system/resources/previews/039/074/325/non_2x/ai-generated-a-steaming-bowl-of-chicken-noodle-soup-brimming-with-tender-chicken-veggies-and-comforting-broth-free-photo.jpeg", tags: ["soup", "non-spicy"] },
+                    { code: "402", name: "Chicken & Mushroom Soup", price: "55", desc: "Creamy soup with chicken and mushrooms", image: "https://static.vecteezy.com/system/resources/previews/069/105/527/non_2x/delicious-creamy-chicken-mushroom-soup-with-fresh-herbs-and-vegetables-free-photo.jpg", tags: ["soup", "non-spicy", "chef"] },
+                    { code: "403", name: "Chicken Soup", price: "55", desc: "Classic chicken soup", image: "https://static.vecteezy.com/system/resources/previews/052/715/959/non_2x/hearty-chicken-noodle-soup-with-vegetables-free-photo.jpg", tags: ["soup", "non-spicy"] }
+                ]
+            },
+            "Pizza": {
+                duration: "",
+                items: [
+                    { code: "268", name: "Tuna Pizza", price: "120", desc: "Pizza with tuna topping", image: "https://static.vecteezy.com/system/resources/previews/042/565/613/non_2x/delicious-pizza-in-cafe-frees-free-photo.jpg", tags: ["main", "seafood", "non-spicy", "chef"] },
+                    { code: "269", name: "Chicken Pizza", price: "120", desc: "Pizza with chicken topping", image: "https://static.vecteezy.com/system/resources/previews/024/905/277/large_2x/freshly-baked-homemade-pizza-on-rustic-wood-table-generated-by-ai-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "270", name: "Beef Pizza", price: "120", desc: "Pizza with beef topping", image: "https://static.vecteezy.com/system/resources/previews/054/354/293/non_2x/delicious-meat-lovers-pizza-with-vegetables-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "271", name: "Sausage Pizza", price: "120", desc: "Pizza with sausage", image: "https://static.vecteezy.com/system/resources/previews/029/607/737/large_2x/cheesy-and-savory-pepperoni-pizza-slice-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "272", name: "Chili Chicken Pizza", price: "120", desc: "Spicy chicken pizza", image: "https://static.vecteezy.com/system/resources/previews/068/786/121/non_2x/delicious-grilled-chicken-pizza-on-a-wooden-board-with-dark-background-free-photo.jpg", tags: ["main", "spicy", "chef"] },
+                    { code: "273", name: "Chicken and Mushroom Pizza", price: "120", desc: "Pizza with chicken and mushrooms", image: "https://static.vecteezy.com/system/resources/previews/050/116/294/non_2x/delicious-mushroom-pizza-topped-with-herbs-on-a-wooden-kitchen-table-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "274", name: "Mix Pizza", price: "120", desc: "Pizza with assorted toppings", image: "https://static.vecteezy.com/system/resources/previews/071/817/672/non_2x/delicious-pepperoni-and-sausage-pizza-with-fresh-basil-and-cherry-tomatoes-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "275", name: "Tandoori Chicken Pizza", price: "120", desc: "Pizza with tandoori chicken", image: "https://static.vecteezy.com/system/resources/previews/048/871/323/large_2x/delicious-chicken-pizza-served-on-rustic-wooden-table-ready-to-enjoy-free-photo.jpeg", tags: ["main", "spicy", "chef"] }
+                ]
+            },
+            "Sandwiches & Burgers": {
+                duration: "",
+                items: [
+                    { code: "276", name: "Tuna submarine", price: "70", desc: "Submarine sandwich with tuna", image: "https://static.vecteezy.com/system/resources/previews/022/779/202/non_2x/argentine-sausage-sandwich-illustration-ai-generative-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "277", name: "Chicken Submarine", price: "70", desc: "Submarine sandwich with chicken", image: "https://static.vecteezy.com/system/resources/previews/035/716/623/large_2x/ai-generated-this-image-shows-the-sammich-sub-with-smoke-coming-from-it-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "278", name: "Beef Submarine", price: "70", desc: "Submarine sandwich with beef", image: "https://static.vecteezy.com/system/resources/previews/069/694/065/non_2x/juicy-steak-and-cheese-sandwich-with-melted-cheddar-and-onions-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "279", name: "Mix Submarine", price: "85", desc: "Submarine with mixed fillings", image: "https://static.vecteezy.com/system/resources/previews/046/874/215/non_2x/freshly-made-deli-style-sub-sandwich-on-wooden-cutting-board-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "280", name: "Tandoori Submarine", price: "85", desc: "Submarine with tandoori chicken", image: "https://static.vecteezy.com/system/resources/previews/048/748/799/large_2x/close-up-of-a-bacon-and-cheese-sub-with-sauce-free-photo.jpeg", tags: ["main", "spicy", "chef"] },
+                    { code: "281", name: "Chicken Burger", price: "70", desc: "Classic chicken burger", image: "https://static.vecteezy.com/system/resources/previews/054/365/479/non_2x/delicious-fast-food-burger-with-fries-and-onion-rings-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "282", name: "Crispy Chicken Burger", price: "75", desc: "Crispy fried chicken burger", image: "https://static.vecteezy.com/system/resources/previews/046/768/465/non_2x/crispy-and-delicious-burger-with-fries-and-ketchup-served-on-a-restaurant-table-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "283", name: "Beef Burger", price: "70", desc: "Classic beef burger", image: "https://static.vecteezy.com/system/resources/previews/073/301/699/non_2x/a-hamburger-with-french-fries-and-a-side-of-ranch-dressing-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "284", name: "Fish and Chips", price: "75", desc: "Fried fish with chips", image: "https://static.vecteezy.com/system/resources/previews/054/355/124/non_2x/delicious-crispy-fried-fish-and-chips-with-dipping-sauces-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "285", name: "Chicken and Chips", price: "75", desc: "Fried chicken with chips", image: "https://static.vecteezy.com/system/resources/previews/071/048/555/non_2x/crispy-fried-chicken-wings-and-french-fries-on-plate-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "286", name: "Chips Portion", price: "30", desc: "Portion of french fries", image: "https://static.vecteezy.com/system/resources/previews/069/376/208/non_2x/crispy-french-fries-in-black-cup-with-salt-and-seasoning-free-photo.jpg", tags: ["side", "vegetarian", "non-spicy"] },
+                    { code: "287", name: "Tuna Sandwich", price: "30", desc: "Sandwich with tuna filling", image: "https://static.vecteezy.com/system/resources/previews/040/461/054/non_2x/ai-generated-a-tuna-salad-sandwich-with-flaky-tuna-mixed-with-mayonnaise-celery-and-onion-served-on-whole-wheat-bread-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "288", name: "Tuna Toast Sandwich", price: "35", desc: "Toasted tuna sandwich", image: "https://static.vecteezy.com/system/resources/previews/068/786/346/non_2x/deliciously-grilled-chicken-sandwich-with-fresh-greens-on-wood-board-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "289", name: "Chicken Sandwich", price: "35", desc: "Sandwich with chicken filling", image: "https://static.vecteezy.com/system/resources/previews/073/352/533/large_2x/sandwich-with-ham-cheese-and-lettuce-on-a-plate-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "290", name: "Chicken Toast Sandwich", price: "40", desc: "Toasted chicken sandwich", image: "https://static.vecteezy.com/system/resources/previews/070/472/989/non_2x/grilled-chicken-sandwich-with-tomatoes-and-herbs-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "291", name: "Beef Sandwich", price: "35", desc: "Sandwich with beef filling", image: "https://static.vecteezy.com/system/resources/previews/053/610/614/non_2x/satisfying-halal-sandwich-with-fresh-meat-and-garden-fresh-vegetables-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "292", name: "Beef Toast Sandwich", price: "40", desc: "Toasted beef sandwich", image: "https://static.vecteezy.com/system/resources/previews/053/610/603/non_2x/halal-meat-and-fresh-vegetables-unite-in-a-flavorful-sandwich-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "293", name: "Tuna Club Sandwich", price: "70", desc: "Club sandwich with tuna", image: "https://images.unsplash.com/photo-1678969405738-323f9acb3c18?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["main", "seafood", "non-spicy", "chef"] },
+                    { code: "294", name: "Chicken Club Sandwich", price: "70", desc: "Club sandwich with chicken", image: "https://images.unsplash.com/photo-1676300184084-de35d56a9a70?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["main", "non-spicy"] },
+                    { code: "295", name: "Beef Club Sandwich", price: "70", desc: "Club sandwich with beef", image: "https://images.unsplash.com/photo-1665233272941-ae681d11fc06?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["main", "non-spicy"] }
+                ]
+            },
+            "Spaghetti & Pasta": {
+                duration: "",
+                items: [
+                    { code: "296", name: "Spaghetti Carbonara", price: "70", desc: "Creamy spaghetti carbonara", image: "https://static.vecteezy.com/system/resources/previews/038/266/656/large_2x/ai-generated-spaghetti-carbonara-with-bacon-and-parmesan-on-a-plate-free-photo.jpeg", tags: ["main", "non-spicy", "chef"] },
+                    { code: "297", name: "Spaghetti Bolognese", price: "70", desc: "Spaghetti with meat sauce", image: "https://static.vecteezy.com/system/resources/previews/002/799/755/non_2x/spaghetti-bolognese-pork-or-spaghetti-with-minced-pork-tomato-sauce-italian-food-style-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "298", name: "Spaghetti Aglio Olio", price: "70", desc: "Spaghetti with garlic and oil", image: "https://static.vecteezy.com/system/resources/previews/059/513/289/non_2x/delicious-spaghetti-aglio-e-olio-garnished-with-herbs-and-cheese-perfect-for-pasta-lovers-free-photo.jpeg", tags: ["main", "vegetarian", "non-spicy"] },
+                    { code: "299", name: "Tuna Pasta", price: "70", desc: "Pasta with tuna", image: "https://static.vecteezy.com/system/resources/previews/070/071/014/non_2x/assorted-pasta-bowls-with-tomato-sauce-and-fresh-parsley-culinary-still-life-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "300", name: "Chicken Pasta", price: "70", desc: "Pasta with chicken", image: "https://static.vecteezy.com/system/resources/previews/024/705/038/non_2x/penne-pasta-in-tomato-sauce-with-chicken-illustration-ai-generative-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "301", name: "Beef Pasta", price: "70", desc: "Pasta with beef", image: "https://static.vecteezy.com/system/resources/previews/038/974/580/large_2x/ai-generated-close-up-macro-of-beef-penne-pasta-in-tomato-sauce-presented-in-a-black-pan-free-photo.jpg", tags: ["main", "non-spicy"] },
+                    { code: "302", name: "White Sauce Pasta", price: "70", desc: "Pasta with white sauce", image: "https://static.vecteezy.com/system/resources/previews/027/903/882/non_2x/freshness-and-gourmet-meal-on-a-healthy-eating-close-up-lunch-generated-by-ai-free-photo.jpg", tags: ["main", "vegetarian", "non-spicy"] }
+                ]
+            },
+            "Main Dishes": {
+                duration: "30-60 minutes",
+                items: [
+                    { code: "303", name: "Tuna fried Rice", price: "60", desc: "Fried rice with tuna", image: "https://static.vecteezy.com/system/resources/previews/073/353/211/large_2x/savory-cooked-rice-mixed-with-vegetables-and-egg-served-on-a-white-plate-against-a-dark-background-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "304", name: "Chicken Fried Rice", price: "60", desc: "Fried rice with chicken", image: "https://static.vecteezy.com/system/resources/previews/073/353/217/large_2x/savory-stir-fried-rice-with-pieces-of-cooked-poultry-served-on-a-dark-plate-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "305", name: "Valhomas Fried Rice", price: "60", desc: "Fried rice with valhomas", image: "https://static.vecteezy.com/system/resources/previews/073/353/659/non_2x/savory-poultry-and-vegetable-seasoned-rice-steams-atop-a-dark-platter-viewed-from-above-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "306", name: "Beef Fried Rice", price: "60", desc: "Fried rice with beef", image: "https://static.vecteezy.com/system/resources/previews/073/352/820/large_2x/steaming-portion-of-savory-fried-rice-with-meat-and-egg-served-on-a-white-dish-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "307", name: "Mix Fried Rice", price: "80", desc: "Fried rice with mixed ingredients", image: "https://static.vecteezy.com/system/resources/previews/073/353/445/non_2x/steaming-plate-of-savory-mixed-protein-rice-dish-sits-ready-for-consumption-on-dark-surface-free-photo.jpeg", tags: ["main", "non-spicy", "chef"] },
+                    { code: "308", name: "Nasi Goreng", price: "70", desc: "Indonesian fried rice", image: "https://static.vecteezy.com/system/resources/previews/074/211/800/non_2x/savory-stir-fried-rice-topped-with-grilled-chicken-slices-peeled-pink-shrimp-and-perfect-sunny-side-up-egg-on-a-round-black-plate-against-a-dark-background-free-photo.jpeg", tags: ["main", "spicy", "chef"] },
+                    { code: "309", name: "Breeze View special Sea Food mix rice", price: "140", desc: "Special seafood rice mix", image: "https://assets.epicurious.com/photos/63ef9f657c3e98834ec8645e/1:1/w_2560%2Cc_limit/Paella_RECIPE_021523_47427.jpg", tags: ["main", "seafood", "premium", "chef"] },
+                    { code: "310", name: "Sea Food Rice", price: "110", desc: "Rice with assorted seafood", image: "https://static.vecteezy.com/system/resources/previews/072/456/910/large_2x/a-vibrant-dish-of-fragrant-fried-rice-featuring-succulent-shrimp-and-savory-chicken-garnished-with-fresh-herbs-and-chili-peppers-presented-on-a-dark-plate-against-a-deep-blue-backdrop-free-photo.jpeg", tags: ["main", "seafood", "premium"] },
+                    { code: "311", name: "Vegetable Rice", price: "60", desc: "Fried rice with vegetables", image: "https://static.vecteezy.com/system/resources/previews/073/353/278/non_2x/savory-seasoned-rice-mixture-featuring-scrambled-egg-pieces-and-colorful-diced-vegetables-is-presented-on-a-dark-surface-free-photo.jpeg", tags: ["main", "vegetarian", "non-spicy"] },
+                    { code: "312", name: "Tuna Fried Noodles", price: "60", desc: "Fried noodles with tuna", image: "https://static.vecteezy.com/system/resources/previews/048/749/011/non_2x/a-close-up-of-chinese-noodles-with-meat-and-vegetables-in-a-blue-and-gold-bowl-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "313", name: "Valhomas Fried Noodles", price: "60", desc: "Fried noodles with valhomas", image: "https://static.vecteezy.com/system/resources/previews/030/494/520/non_2x/mouth-watering-and-tempting-traditional-spicy-noodles-free-photo.jpg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "314", name: "Chicken Fried Noodles", price: "60", desc: "Fried noodles with chicken", image: "https://static.vecteezy.com/system/resources/previews/048/749/012/non_2x/spicy-noodles-with-cashews-chili-peppers-and-green-onions-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "315", name: "Beef Fried Noodles", price: "60", desc: "Fried noodles with beef", image: "https://static.vecteezy.com/system/resources/previews/074/212/677/non_2x/hot-beef-and-vegetable-stir-fry-with-wavy-yellow-ramen-noodles-served-in-a-black-ceramic-bowl-on-a-wooden-table-free-photo.jpeg", tags: ["main", "non-spicy"] },
+                    { code: "316", name: "Mix Fried Noodles", price: "80", desc: "Fried noodles with mixed ingredients", image: "https://static.vecteezy.com/system/resources/previews/072/133/958/non_2x/a-bowl-of-savory-instant-noodles-with-minced-meat-and-fresh-parsley-garnish-free-photo.jpeg", tags: ["main", "non-spicy", "chef"] },
+                    { code: "317", name: "Bami goreng", price: "70", desc: "Indonesian fried noodles", image: "https://static.vecteezy.com/system/resources/previews/051/127/976/non_2x/delicious-bowl-of-beef-stir-fried-noodles-garnished-with-green-onions-served-in-a-dark-setting-free-photo.jpeg", tags: ["main", "spicy", "chef"] },
+                    { code: "318", name: "Sea Food Noodles", price: "110", desc: "Noodles with assorted seafood", image: "https://static.vecteezy.com/system/resources/previews/048/749/009/large_2x/shrimp-and-noodle-stir-fry-with-chili-peppers-and-parsley-free-photo.jpeg", tags: ["main", "seafood", "premium"] },
+                    { code: "319", name: "Breeze View Special Sea Food Mix Noodles", price: "140", desc: "Special seafood noodle mix", image: "https://omnivorescookbook.com/wp-content/uploads/2020/12/201029_XO-Fried-Noodles_1.jpg", tags: ["main", "seafood", "premium", "chef"] },
+                    { code: "320", name: "Lazagna", price: "170", desc: "Classic Italian lasagna", image: "https://static.vecteezy.com/system/resources/previews/073/615/700/non_2x/realistic-homemade-beef-lasagna-layered-with-creamy-cheese-and-sauce-served-hot-and-fresh-free-photo.jpg", tags: ["main", "premium", "chef"] },
+                    { code: "321", name: "Tuna Kohthuroshi", price: "60", desc: "Kohthuroshi with tuna", image: "https://lonumedhu.com/sites/default/files/ChickenKothu2.jpg", tags: ["main", "seafood", "spicy"] },
+                    { code: "322", name: "Chicken Kohthuroshi", price: "60", desc: "Kohthuroshi with chicken", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H3.jpg", tags: ["main", "spicy"] },
+                    { code: "323", name: "Valhomas Kohthuroshi", price: "60", desc: "Kohthuroshi with valhomas", image: "https://lonumedhu.com/sites/default/files/kothu.jpg", tags: ["main", "seafood", "spicy"] },
+                    { code: "324", name: "Beef Kohthuroshi", price: "60", desc: "Kohthuroshi with beef", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H-1024x682.jpg", tags: ["main", "spicy"] },
+                    { code: "325", name: "Mix Kohthuroshi", price: "80", desc: "Kohthuroshi with mixed ingredients", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H2-1024x683.jpg", tags: ["main", "spicy", "chef"] },
+                    { code: "326", name: "Sea food Kohthuroshi", price: "110", desc: "Kohthuroshi with seafood", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H8.jpg", tags: ["main", "seafood", "premium"] },
+                    { code: "327", name: "Breeze View Special Mix Sea Food Kohthuroshi", price: "140", desc: "Special seafood kohthuroshi mix", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H7.jpg", tags: ["main", "seafood", "premium", "chef"] },
+                    { code: "328", name: "Chili Chicken (portion)", price: "70", desc: "Spicy chicken portion", image: "https://static.vecteezy.com/system/resources/previews/070/274/818/large_2x/delicious-savory-sizzling-stir-fry-with-steaming-aromas-free-photo.jpg", tags: ["main", "spicy", "chef"] },
+                    { code: "329", name: "Grilled Chicken (portion)", price: "70", desc: "Grilled chicken portion", image: "https://static.vecteezy.com/system/resources/previews/047/976/100/non_2x/grilled-chicken-breast-with-arugula-and-tomatoes-on-a-plate-free-photo.jpg", tags: ["main", "non-spicy", "chef"] },
+                    { code: "330", name: "Devilled Fish (portion)", price: "70", desc: "Spicy fish portion", image: "https://static.vecteezy.com/system/resources/previews/074/042/705/non_2x/spicy-red-curry-fish-with-white-rice-and-chili-garnish-free-photo.jpg", tags: ["main", "seafood", "spicy"] },
+                    { code: "331", name: "Devilled Chicken (portion)", price: "70", desc: "Spicy chicken portion", image: "https://static.vecteezy.com/system/resources/previews/072/845/283/large_2x/delicious-spicy-chicken-bites-with-curry-leaves-on-dark-plate-free-photo.jpg", tags: ["main", "spicy"] },
+                    { code: "404", name: "Mongolian Rice", price: "100", desc: "Mongolian style rice", image: "https://static.vecteezy.com/system/resources/previews/072/845/386/non_2x/savory-clay-pot-rice-dish-with-sausage-and-vegetables-free-photo.jpg", tags: ["main", "spicy", "chef"] }
+                ]
+            },
+            "Indian Dishes": {
+                duration: "60-105 minutes",
+                items: [
+                    { code: "332", name: "Kadai Chicken (portion)", price: "70", desc: "Chicken cooked in kadai", image: "https://static.vecteezy.com/system/resources/previews/073/352/774/non_2x/savory-chicken-pieces-simmered-in-a-rich-spiced-sauce-within-a-traditional-dark-metal-serving-dish-free-photo.jpeg", tags: ["main", "spicy", "chef"] },
+                    { code: "333", name: "Butter Chicken (portion)", price: "70", desc: "Creamy butter chicken", image: "https://static.vecteezy.com/system/resources/previews/070/308/617/non_2x/delicious-chicken-tikka-masala-richly-garnished-with-fresh-herbs-free-photo.jpg", tags: ["main", "non-spicy", "chef"] },
+                    { code: "334", name: "Chicken Curry (portion)", price: "70", desc: "Classic chicken curry", image: "https://static.vecteezy.com/system/resources/previews/072/849/040/non_2x/rich-and-spicy-chicken-curry-served-in-a-rustic-bowl-free-photo.jpg", tags: ["main", "spicy"] },
+                    { code: "335", name: "Chicken Masala (portion)", price: "70", desc: "Chicken with masala spices", image: "https://static.vecteezy.com/system/resources/previews/067/900/094/non_2x/a-creamy-hungarian-chicken-paprikash-a-classic-dish-free-photo.jpeg", tags: ["main", "spicy"] },
+                    { code: "336", name: "Chicken Tikka Masala (portion)", price: "70", desc: "Chicken tikka in masala sauce", image: "https://static.vecteezy.com/system/resources/previews/074/285/874/non_2x/chicken-tikka-masala-curry-in-a-bowl-on-a-black-table-free-photo.jpeg", tags: ["main", "spicy", "chef"] },
+                    { code: "337", name: "Chicken Biryani", price: "95", desc: "Fragrant chicken biryani", image: "https://static.vecteezy.com/system/resources/previews/068/286/646/large_2x/delicious-chicken-biryani-with-spices-and-herbs-free-photo.jpg", tags: ["main", "spicy", "chef", "premium"] },
+                    { code: "338", name: "Tandoori Chicken (Half)", price: "130", desc: "Half tandoori chicken", image: "https://headbangerskitchen.com/wp-content/uploads/2022/07/TANDOORICHICKEN-H4-1024x576.jpg", tags: ["main", "spicy", "premium"] },
+                    { code: "339", name: "Tandoori Chicken (Full)", price: "200", desc: "Full tandoori chicken", image: "https://static.vecteezy.com/system/resources/previews/049/179/590/non_2x/mouthwatering-tandoori-chicken-meal-presentation-free-photo.jpg", tags: ["main", "spicy", "premium", "chef"] },
+                    { code: "340", name: "Paratha chef Special", price: "12", desc: "Special layered flatbread", image: "https://static.vecteezy.com/system/resources/previews/073/353/878/non_2x/stack-of-layered-spiral-shaped-flatbread-rests-on-a-wooden-cutting-board-garnished-with-fresh-herbs-free-photo.jpeg", tags: ["side", "chef"] },
+                    { code: "341", name: "Normal Naan chef Special", price: "15", desc: "Special traditional naan", image: "https://static.vecteezy.com/system/resources/previews/072/851/400/non_2x/delicious-golden-naan-bread-stacked-on-a-dark-background-free-photo.jpg", tags: ["side", "chef"] },
+                    { code: "342", name: "Butter Naan chef Special", price: "20", desc: "Special butter naan", image: "https://static.vecteezy.com/system/resources/previews/072/849/457/non_2x/freshly-baked-flatbread-stacked-on-a-rustic-wooden-table-with-firelight-free-photo.jpg", tags: ["side", "chef"] },
+                    { code: "343", name: "Garlic Naan chef Special", price: "20", desc: "Special garlic naan", image: "https://static.vecteezy.com/system/resources/previews/072/849/080/non_2x/delicious-garlic-naan-bread-topped-with-fresh-herbs-and-melted-butter-free-photo.jpg", tags: ["side", "chef"] },
+                    { code: "344", name: "Chicken 65 (portion)", price: "70", desc: "Spicy chicken 65", image: "https://static.vecteezy.com/system/resources/previews/074/449/874/large_2x/chicken-wings-with-lemon-and-chopsticks-free-photo.jpeg", tags: ["main", "spicy"] }
+                ]
+            },
+            "Kids Corner": {
+                duration: "",
+                items: [
+                    { code: "345", name: "Chicken Nuggets with French Fries", price: "70", desc: "Chicken nuggets with fries", image: "https://static.vecteezy.com/system/resources/previews/074/137/489/large_2x/crispy-fish-and-chips-served-on-a-tray-with-ketchup-rustic-and-appetizing-free-photo.jpeg", tags: ["kids", "non-spicy"] },
+                    { code: "346", name: "Fish Finger with French Fries", price: "70", desc: "Fish fingers with fries", image: "https://static.vecteezy.com/system/resources/previews/071/969/679/non_2x/fish-and-chips-on-parchment-paper-with-sauces-free-photo.jpg", tags: ["kids", "seafood", "non-spicy"] },
+                    { code: "347", name: "Chicken Finger with French Fries", price: "70", desc: "Chicken fingers with fries", image: "https://static.vecteezy.com/system/resources/previews/054/355/124/non_2x/delicious-crispy-fried-fish-and-chips-with-dipping-sauces-free-photo.jpg", tags: ["kids", "non-spicy"] }
+                ]
+            },
+            "Sizzling Dishes": {
+                duration: "",
+                items: [
+                    { code: "405", name: "Chicken Sizzler Rice", price: "150", desc: "Sizzling chicken rice", image: "https://static.vecteezy.com/system/resources/previews/026/570/478/large_2x/nasi-goreng-indonesian-traditional-food-fried-rice-chicken-with-eggs-and-spicy-spices-by-frying-concept-by-ai-generated-free-photo.jpg", tags: ["main", "premium", "chef"] },
+                    { code: "406", name: "Chicken Garlic Sizzler Rice", price: "150", desc: "Sizzling garlic chicken rice", image: "https://static.vecteezy.com/system/resources/previews/026/604/888/non_2x/nasi-goreng-indonesian-traditional-food-fried-rice-chicken-with-eggs-and-spicy-spices-by-frying-concept-by-ai-generated-free-photo.jpg", tags: ["main", "premium", "chef"] },
+                    { code: "407", name: "Chicken Steak Sizzler Rice", price: "150", desc: "Sizzling chicken steak rice", image: "https://static.vecteezy.com/system/resources/previews/026/592/081/non_2x/nasi-goreng-indonesian-traditional-food-fried-rice-chicken-with-eggs-and-spicy-spices-by-frying-concept-by-ai-generated-free-photo.jpg", tags: ["main", "premium", "chef"] },
+                    { code: "408", name: "Beef Steak Sizzler Rice", price: "150", desc: "Sizzling beef steak rice", image: "https://static.vecteezy.com/system/resources/previews/069/866/140/large_2x/a-bowl-of-rice-and-meat-with-herbs-on-top-free-photo.jpeg", tags: ["main", "premium", "chef"] }
+                ]
+            },
+            "Signature Dishes": {
+                duration: "20-45 minutes",
+                items: [
+                    { id: 1, name: "Tuna Pizza", price: "120", desc: "Fresh tuna with mozzarella, cherry tomatoes, and herbs on thin crust", image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "seafood", "premium", "spicy"], badge: "Chef's Pick" },
+                    { id: 2, name: "Chicken Biryani", price: "95", desc: "Fragrant basmati rice with tender chicken and aromatic spices", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["spicy", "chef", "premium"], badge: "Popular" },
+                    { id: 3, name: "Seafood Platter", price: "140", desc: "Grilled lobster, prawns, fish with garlic butter and lemon", image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["seafood", "premium", "chef"], badge: "Premium" },
+                    { id: 4, name: "Vegetable Curry", price: "60", desc: "Seasonal vegetables in coconut curry with aromatic spices", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian", "spicy"], badge: "Healthy" },
+                    { id: 5, name: "Tandoori Chicken", price: "130", desc: "Half chicken marinated in yogurt and spices, clay oven roasted", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "spicy", "premium"], badge: "Signature" },
+                    { id: 6, name: "Avocado Salad", price: "55", desc: "Fresh avocado, cherry tomatoes, mixed greens with lemon dressing", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian"], badge: "Fresh" },
+                    { id: 7, name: "Lamb Chops", price: "150", desc: "Grilled lamb chops with mint sauce and roasted vegetables", image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["premium", "chef"], badge: "Premium" },
+                    { id: 8, name: "Chocolate Milkshake", price: "55", desc: "Rich chocolate milkshake with whipped cream and chocolate shavings", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "vegetarian"], badge: "Sweet" }
+                ]
+            }
+        };
+
+        // Gallery Images
+        const galleryImages = [
+            {
+                src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Luxury Dining Area"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Signature Tuna Dish"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Breathtaking Waterfront"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Premium Karaoke Lounge"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Chef's Special Platter"
+            },
+            {
+                src: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                caption: "Evening Ambiance"
+            }
+        ];
+
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const header = document.getElementById('header');
+        const navLinks = document.getElementById('navLinks');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const menuItemsEl = document.getElementById('menuItems');
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const advancedFiltersEl = document.getElementById('advancedFilters');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        // Current filter state
+        let currentFilter = 'all';
+        let currentAdvancedFilters = [];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loading screen
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+
+            // Initialize theme
+            initTheme();
+            
+            // Generate menu items
+            generateMenuItems();
+            
+            // Generate advanced filters
+            generateAdvancedFilters();
+            
+            // Initialize animations
+            initAnimations();
+            
+            // Initialize lightbox
+            initLightbox();
+        });
+
+        // Initialize Theme
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // Toggle Theme
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // Generate Advanced Filters
+        function generateAdvancedFilters() {
+            const allTags = new Set();
+            
+            // Collect all unique tags from menu items
+            for (const category in completeMenuData) {
+                const items = completeMenuData[category].items;
+                items.forEach(item => {
+                    if (item.tags) {
+                        item.tags.forEach(tag => allTags.add(tag));
+                    }
+                });
+            }
+            
+            // Define filter groups
+            const filterGroups = {
+                "Spice Level": ["spicy", "non-spicy"],
+                "Dietary": ["vegetarian", "seafood"],
+                "Type": ["main", "breakfast", "beverage", "dessert", "snack", "salad", "soup", "side"],
+                "Special": ["chef", "premium", "traditional", "kids"]
+            };
+            
+            // Generate filter buttons
+            for (const group in filterGroups) {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'filter-group';
+                groupDiv.innerHTML = `<strong style="color: var(--text-color); margin-right: 10px;">${group}:</strong>`;
+                
+                filterGroups[group].forEach(tag => {
+                    if (allTags.has(tag)) {
+                        const button = document.createElement('button');
+                        button.className = 'advanced-filter';
+                        button.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+                        button.setAttribute('data-tag', tag);
+                        button.addEventListener('click', () => {
+                            button.classList.toggle('active');
+                            updateAdvancedFilters();
+                        });
+                        groupDiv.appendChild(button);
+                    }
+                });
+                
+                advancedFiltersEl.appendChild(groupDiv);
+            }
+        }
+
+        // Update Advanced Filters
+        function updateAdvancedFilters() {
+            const activeFilters = document.querySelectorAll('.advanced-filter.active');
+            currentAdvancedFilters = Array.from(activeFilters).map(btn => btn.getAttribute('data-tag'));
+            generateMenuItems();
+        }
+
+        // Generate Menu Items
+        function generateMenuItems() {
+            menuItemsEl.innerHTML = '';
+            let allItems = [];
+            
+            // Collect items based on current filter
+            if (currentFilter === 'all') {
+                for (const category in completeMenuData) {
+                    const items = completeMenuData[category].items;
+                    items.forEach(item => {
+                        item.category = category;
+                        item.duration = completeMenuData[category].duration;
+                    });
+                    allItems = allItems.concat(items);
+                }
+            } else if (currentFilter === 'category') {
+                // Show category headers
+                for (const category in completeMenuData) {
+                    const categoryHeader = document.createElement('div');
+                    categoryHeader.className = 'category-header';
+                    categoryHeader.innerHTML = `
+                        <h3 style="font-size: 2rem; margin: 40px 0 20px; color: var(--text-color); border-bottom: 2px solid var(--primary); padding-bottom: 10px;">
+                            ${category} <span style="font-size: 1rem; color: var(--gray);">${completeMenuData[category].duration ? `(${completeMenuData[category].duration})` : ''}</span>
+                        </h3>
+                    `;
+                    menuItemsEl.appendChild(categoryHeader);
+                    
+                    const items = completeMenuData[category].items;
+                    items.forEach((item, index) => {
+                        if (filterItemByAdvancedFilters(item)) {
+                            const itemEl = createMenuItemElement(item, index, category);
+                            menuItemsEl.appendChild(itemEl);
+                        }
+                    });
+                }
+                return; // Exit early since we handled category view
+            } else if (currentFilter === 'chef') {
+                for (const category in completeMenuData) {
+                    const items = completeMenuData[category].items.filter(item => 
+                        item.tags && item.tags.includes('chef')
+                    );
+                    items.forEach(item => {
+                        item.category = category;
+                        item.duration = completeMenuData[category].duration;
+                    });
+                    allItems = allItems.concat(items);
+                }
+            } else if (currentFilter === 'spicy') {
+                for (const category in completeMenuData) {
+                    const items = completeMenuData[category].items.filter(item => 
+                        item.tags && item.tags.includes('spicy')
+                    );
+                    items.forEach(item => {
+                        item.category = category;
+                        item.duration = completeMenuData[category].duration;
+                    });
+                    allItems = allItems.concat(items);
+                }
+            }
+            
+            // Apply advanced filters
+            allItems = allItems.filter(item => filterItemByAdvancedFilters(item));
+            
+            // Generate item elements
+            allItems.forEach((item, index) => {
+                const itemEl = createMenuItemElement(item, index);
+                menuItemsEl.appendChild(itemEl);
+            });
+            
+            // Animate menu items
+            setTimeout(() => {
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    item.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        // Filter Item by Advanced Filters
+        function filterItemByAdvancedFilters(item) {
+            if (currentAdvancedFilters.length === 0) return true;
+            
+            if (!item.tags) return false;
+            
+            return currentAdvancedFilters.every(filter => item.tags.includes(filter));
+        }
+
+        // Create Menu Item Element
+        function createMenuItemElement(item, index, category = null) {
+            const itemEl = document.createElement('div');
+            itemEl.className = 'menu-item animate';
+            itemEl.style.animationDelay = `${index * 0.1}s`;
+            
+            const priceDisplay = item.price ? `MVR ${item.price}` : 'Price on request';
+            const badge = item.badge ? `<div class="menu-item-badge">${item.badge}</div>` : '';
+            const codeDisplay = item.code ? `<div class="menu-item-code">Code: ${item.code}</div>` : '';
+            const durationDisplay = item.duration ? `<span style="color: var(--gray); font-size: 0.9rem;">(${item.duration})</span>` : '';
+            const categoryDisplay = category ? `<span style="color: var(--primary); font-size: 0.9rem; background: rgba(201, 169, 110, 0.1); padding: 2px 8px; border-radius: 10px;">${category}</span>` : '';
+            
+            itemEl.innerHTML = `
+                <div class="menu-item-img">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    ${badge}
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-name">${item.name}</h3>
+                        <div class="menu-item-price">${priceDisplay}</div>
+                    </div>
+                    ${categoryDisplay}
+                    <p class="menu-item-desc">${item.desc}</p>
+                    ${codeDisplay}
+                    ${durationDisplay}
+                    <div class="menu-item-tags">
+                        ${item.tags ? item.tags.map(tag => `<span class="menu-tag">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`).join('') : ''}
+                    </div>
+                </div>
+            `;
+            return itemEl;
+        }
+
+        // Filter Menu Items
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                // Remove active class from all chips
+                filterChips.forEach(c => c.classList.remove('active'));
+                // Add active class to clicked chip
+                chip.classList.add('active');
+                // Update current filter
+                currentFilter = chip.getAttribute('data-filter');
+                // Generate menu items
+                generateMenuItems();
+            });
+        });
+
+        // Initialize Animations
+        function initAnimations() {
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all animate elements
+            document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+            
+            // Scroll handler for header
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        }
+
+        // Handle Scroll Events
+        function handleScroll() {
+            // Header scroll effect
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Animate elements on scroll
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            document.querySelectorAll('.animate').forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top + scrollPosition;
+                
+                if (scrollPosition + windowHeight > elementPosition + 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize Lightbox
+        function initLightbox() {
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const index = parseInt(item.getAttribute('data-index'));
+                    const image = galleryImages[index];
+                    
+                    lightboxImg.src = image.src;
+                    lightboxCaption.textContent = image.caption;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close lightbox
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Handle image loading errors
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.src = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+            }
+        }, true);
+
+        // Add floating animation to elements
+        const floatingElements = document.querySelectorAll('.info-card, .booking-card');
+        floatingElements.forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>
