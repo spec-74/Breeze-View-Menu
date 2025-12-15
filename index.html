@@ -1304,6 +1304,30 @@
     }
 }
 
+@media (max-width: 480px) {
+    .contact-actions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-action {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem; /* 👈 THIS fixes it */
+    }
+
+    .contact-action:last-child {
+        margin-bottom: 0; /* remove extra space at end */
+    }
+}
+
+.contact-action {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+
         /* ============================================
            BOOKING SECTION
         ============================================ */
