@@ -6,7 +6,12 @@
     <title>Breeze View - Luxury Dining & Karaoke | Sh.Narudhoo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Favicon with Breeze View Logo -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23c9a96e%22>🍃</text></svg>" type="image/svg+xml">
     <style>
+        /* ============================================
+           CSS RESET & BASE VARIABLES
+        ============================================ */
         :root {
             --primary: #c9a96e;
             --primary-light: #e3c99c;
@@ -16,16 +21,17 @@
             --light: #f8f5f0;
             --dark: #121212;
             --gray: #8a8a8a;
-            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.25);
-            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --radius: 12px;
+            --container-padding: clamp(1rem, 4vw, 2.5rem);
             
             /* Theme variables */
             --bg-color: #121212;
             --text-color: #f8f5f0;
             --card-bg: #2d2d2d;
-            --header-bg: rgba(18, 18, 18, 0.9);
+            --header-bg: rgba(18, 18, 18, 0.95);
         }
 
         /* Light theme variables */
@@ -41,9 +47,9 @@
             --bg-color: #f8f5f0;
             --text-color: #121212;
             --card-bg: #ffffff;
-            --header-bg: rgba(248, 245, 240, 0.9);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.12);
+            --header-bg: rgba(248, 245, 240, 0.95);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -57,9 +63,21 @@
             font-size: 16px;
         }
 
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
             overflow-x: hidden;
@@ -109,18 +127,36 @@
             display: block;
         }
 
+        /* Responsive Container */
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--container-padding);
         }
 
+        /* Responsive Typography */
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 18px 40px;
+            padding: clamp(0.75rem, 2vw, 1.125rem) clamp(1.5rem, 4vw, 2.5rem);
             background-color: var(--primary);
             color: var(--secondary);
             border: none;
@@ -128,46 +164,18 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             letter-spacing: 0.5px;
             position: relative;
             overflow: hidden;
-            gap: 12px;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            white-space: nowrap;
         }
 
         .btn:hover {
             background-color: var(--primary-light);
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
         }
 
         .btn-secondary {
@@ -181,33 +189,19 @@
             color: var(--primary-light);
         }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-color);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
+        /* Sections */
         .section {
-            padding: 120px 0;
+            padding: clamp(3rem, 8vw, 7.5rem) 0;
             position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: clamp(2rem, 5vw, 5rem);
             position: relative;
         }
 
         .section-title h2 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
             position: relative;
             display: inline-block;
         }
@@ -215,10 +209,10 @@
         .section-title h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -0.75rem;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: clamp(3rem, 8vw, 6.25rem);
             height: 3px;
             background: linear-gradient(to right, transparent, var(--primary), transparent);
         }
@@ -227,8 +221,7 @@
             color: var(--gray);
             max-width: 700px;
             margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         /* Animations */
@@ -243,7 +236,7 @@
             }
         }
 
-        @keyframes fadeInLeft {
+        @keyframes slideInLeft {
             from {
                 opacity: 0;
                 transform: translateX(-30px);
@@ -254,7 +247,7 @@
             }
         }
 
-        @keyframes fadeInRight {
+        @keyframes slideInRight {
             from {
                 opacity: 0;
                 transform: translateX(30px);
@@ -262,15 +255,6 @@
             to {
                 opacity: 1;
                 transform: translateX(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
             }
         }
 
@@ -285,20 +269,18 @@
             transform: translateY(0);
         }
 
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Header & Navigation */
+        /* ============================================
+           HEADER & NAVIGATION WITH LOGO
+        ============================================ */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 0;
+            padding: clamp(0.75rem, 2vw, 1.25rem) 0;
             z-index: 1000;
             background-color: var(--header-bg);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             transition: var(--transition);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -308,7 +290,7 @@
         }
 
         header.scrolled {
-            padding: 15px 0;
+            padding: clamp(0.5rem, 1.5vw, 0.9375rem) 0;
             background-color: var(--header-bg);
             box-shadow: var(--shadow);
         }
@@ -317,37 +299,97 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
+        /* LOGO STYLING - Integrated from your provided logo */
         .logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             color: var(--text-color);
+            text-decoration: none;
+            line-height: 1;
+            padding: 0.5rem 0;
+        }
+
+        .logo-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column; /* stacks text vertically */
+            line-height: 1.2;
+        }
+
+        .logo-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .logo-tagline {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .logo-year {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .logo-main {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        
+        .logo-img {
+            width: 50px;        /* adjust size */
+            height: auto;
+            object-fit: contain;
+        }
 
-        .logo span {
-            color: var(--primary);
+        .logo-main {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo-icon {
-            font-size: 1.8rem;
             color: var(--primary);
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+        }
+
+        .logo-tagline {
+            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+            color: var(--primary);
+            margin-top: 0.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-year {
+            font-size: clamp(0.5rem, 1vw, 0.7rem);
+            color: var(--gray);
+            margin-top: 0.1rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: clamp(1rem, 2vw, 2.5rem);
         }
 
         .nav-links a {
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
             position: relative;
-            padding: 5px 0;
+            padding: 0.5rem 0;
         }
 
         .nav-links a::after {
@@ -376,6 +418,7 @@
             color: var(--text-color);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
         }
 
         .theme-toggle {
@@ -384,7 +427,7 @@
             color: var(--text-color);
             font-size: 1.5rem;
             cursor: pointer;
-            margin-left: 20px;
+            margin-left: 1rem;
             transition: var(--transition);
         }
 
@@ -393,24 +436,87 @@
             transform: rotate(30deg);
         }
 
-        /* Hero Section */
+        /* ============================================
+           HERO SECTION WITH AUTO-SWIPING BACKGROUND
+        ============================================ */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
 
-        .hero-video {
+        .hero-carousel {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -2;
-            opacity: 0.3;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        /* Background Images for Carousel */
+        .slide-1 { 
+            background-image: url("images/my-background1.jpg");
+        }
+        .slide-2 {
+            background-image: url("images/my-background2.jpg");
+        }
+        .slide-3 {
+            background-image: url("images/my-background3.jpg");
+        }
+        .slide-4 {
+            background-image: url("images/my-background4.jpg");
+        }
+        .slide-5 {
+            background-image: url("images/my-background5.jpg");
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 3;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background-color: var(--primary-light);
         }
 
         .hero-overlay {
@@ -419,24 +525,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.7) 100%);
+            background: linear-gradient(45deg, rgba(18, 18, 18, 0.85) 0%, rgba(18, 18, 18, 0.6) 100%);
             z-index: -1;
         }
 
         .light-theme .hero-overlay {
-            background: linear-gradient(45deg, rgba(248, 245, 240, 0.9) 0%, rgba(248, 245, 240, 0.7) 100%);
+            background: linear-gradient(45deg, rgba(248, 245, 240, 0.85) 0%, rgba(248, 245, 240, 0.6) 100%);
         }
 
         .hero-content {
             max-width: 800px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 5rem;
-            margin-bottom: 30px;
-            line-height: 1.1;
             background: linear-gradient(135deg, var(--text-color) 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -445,8 +548,8 @@
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
             color: var(--gray);
             animation: fadeInUp 1s ease-out 0.3s both;
             max-width: 600px;
@@ -454,40 +557,70 @@
 
         .hero-btns {
             display: flex;
-            gap: 20px;
+            gap: clamp(1rem, 2vw, 1.25rem);
             flex-wrap: wrap;
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
-        /* Quick Info */
+        /* Carousel Navigation Arrows */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .carousel-arrow {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            pointer-events: auto;
+            opacity: 0.7;
+        }
+
+        .carousel-arrow:hover {
+            background-color: var(--primary);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .carousel-arrow i {
+            font-size: 1.5rem;
+        }
+
+        /* ============================================
+           QUICK INFO
+        ============================================ */
         .quick-info {
             background-color: var(--secondary);
-            padding: 60px 0;
+            padding: clamp(2rem, 5vw, 3.75rem) 0;
             position: relative;
             overflow: hidden;
             transition: var(--transition);
         }
 
-        .quick-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 40%, rgba(201, 169, 110, 0.03) 100%);
-            pointer-events: none;
-        }
-
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: clamp(1rem, 2vw, 1.875rem);
         }
 
         .info-card {
             background-color: var(--card-bg);
-            padding: 40px 30px;
+            padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.875rem);
             border-radius: var(--radius);
             text-align: center;
             transition: var(--transition);
@@ -506,64 +639,53 @@
             box-shadow: var(--shadow-hover);
         }
 
-        .info-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-            transition: var(--transition);
-        }
-
-        .info-card:hover::before {
-            left: 100%;
-        }
-
         .info-icon {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: clamp(1rem, 2vw, 1.25rem);
         }
 
         .info-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            margin-bottom: 0.5rem;
             color: var(--text-color);
         }
 
         .info-card p {
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.5;
         }
 
-        /* Menu Filter System */
+        /* ============================================
+           INTERACTIVE MENU
+        ============================================ */
         .menu-filter-container {
-            margin-bottom: 60px;
+            margin-bottom: clamp(2rem, 4vw, 3.75rem);
         }
 
         .menu-filter-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: clamp(0.5rem, 1vw, 0.9375rem);
+            margin-bottom: clamp(1rem, 2vw, 1.875rem);
         }
 
         .filter-chip {
-            padding: 12px 28px;
+            padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.75rem);
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
-            font-size: 1rem;
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(0.25rem, 0.5vw, 0.5rem);
             color: var(--text-color);
+            white-space: nowrap;
         }
 
         .light-theme .filter-chip {
@@ -587,18 +709,19 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: clamp(0.5rem, 1vw, 0.625rem);
         }
 
         .advanced-filter {
-            padding: 8px 20px;
+            padding: clamp(0.4rem, 0.8vw, 0.5rem) clamp(1rem, 1.5vw, 1.25rem);
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 30px;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
             color: var(--text-color);
+            white-space: nowrap;
         }
 
         .light-theme .advanced-filter {
@@ -616,11 +739,11 @@
             color: var(--secondary);
         }
 
-        /* Menu Items */
+        /* Menu Items Grid */
         .menu-items {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1.5rem, 3vw, 2.5rem);
         }
 
         .menu-item {
@@ -644,13 +767,13 @@
         }
 
         .menu-item:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             border-color: rgba(201, 169, 110, 0.3);
             box-shadow: var(--shadow-hover);
         }
 
         .menu-item-img {
-            height: 250px;
+            height: 200px;
             overflow: hidden;
             position: relative;
         }
@@ -668,83 +791,102 @@
 
         .menu-item-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background-color: var(--primary);
             color: var(--secondary);
-            padding: 8px 16px;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             z-index: 2;
         }
 
         .menu-item-content {
-            padding: 30px;
+            padding: clamp(1rem, 2vw, 1.875rem);
         }
 
         .menu-item-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 0.75rem;
         }
 
         .menu-item-name {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 1.8vw, 1.5rem);
             color: var(--text-color);
             font-family: 'Cormorant Garamond', serif;
+            flex: 1;
+            margin-right: 1rem;
         }
 
         .menu-item-price {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 1.8vw, 1.8rem);
             color: var(--primary);
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            white-space: nowrap;
         }
 
         .menu-item-desc {
             color: var(--gray);
-            margin-bottom: 20px;
-            line-height: 1.7;
+            margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
         }
 
         .menu-item-tags {
             display: flex;
-            gap: 10px;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
         .menu-tag {
-            padding: 6px 14px;
+            padding: 0.25rem 0.75rem;
             background-color: rgba(201, 169, 110, 0.1);
             color: var(--primary-light);
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
         .menu-item-code {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            margin-top: 15px;
+            margin-top: 0.75rem;
         }
 
-        /* Photo Gallery */
+        /* Category Header */
+        .category-header {
+            grid-column: 1 / -1;
+            margin: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+
+        .category-header h3 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        /* ============================================
+           PHOTO GALLERY (USING LOCAL IMAGES)
+        ============================================ */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.25rem);
         }
 
         .gallery-item {
             position: relative;
             border-radius: var(--radius);
             overflow: hidden;
-            height: 300px;
+            height: 250px;
             cursor: pointer;
             transition: var(--transition);
         }
@@ -757,6 +899,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            image-orientation: center;
             transition: transform 1s ease;
         }
 
@@ -775,8 +918,13 @@
             transition: var(--transition);
             display: flex;
             align-items: flex-end;
-            padding: 30px;
+            padding: 1.5rem;
         }
+
+        .gallery-item img {
+            image-orientation: from-image;
+        }
+
 
         .gallery-item:hover .gallery-overlay {
             opacity: 1;
@@ -784,7 +932,7 @@
 
         .gallery-caption {
             color: white;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
             transform: translateY(20px);
             transition: var(--transition);
         }
@@ -793,11 +941,13 @@
             transform: translateY(0);
         }
 
-        /* About Section */
+        /* ============================================
+           ABOUT SECTION
+        ============================================ */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(2rem, 4vw, 5rem);
             align-items: center;
         }
 
@@ -809,7 +959,7 @@
 
         .about-img img {
             width: 100%;
-            height: 600px;
+            height: 400px;
             object-fit: cover;
             transition: transform 1s ease;
         }
@@ -819,176 +969,342 @@
         }
 
         .about-text h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            margin-bottom: clamp(1rem, 2vw, 1.875rem);
             color: var(--text-color);
         }
 
         .about-text p {
             color: var(--gray);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            margin-bottom: clamp(1rem, 2vw, 1.5625rem);
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
         }
 
         .chef-spotlight {
-            margin-top: 50px;
+            margin-top: clamp(1.5rem, 3vw, 3.125rem);
             background-color: var(--card-bg);
-            padding: 40px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
             border-radius: var(--radius);
             border-left: 4px solid var(--primary);
         }
 
         .chef-spotlight h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            margin-bottom: 0.75rem;
             color: var(--primary);
         }
 
-        /* Contact Section */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-        }
+        /* ============================================
+           CONTACT SECTION
+        ============================================ */
+       
+.contact-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: clamp(2rem, 4vw, 5rem);
+}
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2vw, 1.875rem);
+}
 
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(1rem, 2vw, 1.25rem);
+    padding: clamp(1rem, 2vw, 1.875rem);
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition), background-color 0.3s ease;
+    cursor: pointer;
+}
 
-        .light-theme .contact-item {
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
+.light-theme .contact-item {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
 
-        .contact-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 169, 110, 0.2);
-        }
+.contact-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201, 169, 110, 0.2);
+    background-color: rgba(201, 169, 110, 0.05);
+}
 
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--secondary);
-            flex-shrink: 0;
-        }
+.contact-icon {
+    width: clamp(3rem, 5vw, 3.75rem);
+    height: clamp(3rem, 5vw, 3.75rem);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    color: var(--secondary);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
 
-        .contact-details h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
+.contact-details h3 {
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
 
-        .contact-details p {
-            color: var(--gray);
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
+.contact-details p {
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+    line-height: 1.5;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+}
 
-        .contact-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-            position: relative;
-        }
+/* Clickable Contact Elements */
+.clickable-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    margin: 0.5rem 0;
+    transition: var(--transition), transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    text-decoration: none;
+}
 
-        .contact-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: var(--transition);
-        }
+.light-theme .clickable-contact {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
 
-        .contact-link:hover {
-            color: var(--primary-light);
-        }
+.clickable-contact:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+    transform: translateY(-3px);
+}
 
-        .contact-link:hover::after {
-            width: 100%;
-        }
+.clickable-contact i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
+.clickable-contact:hover i {
+    transform: scale(1.1);
+}
 
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            background-color: var(--card-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+/* Social Media Section */
+.social-media-section {
+    margin-top: 2rem;
+}
 
-        .light-theme .social-links a {
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
+.social-media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
 
-        .social-links a:hover {
-            background-color: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
+.social-media-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition), transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-        /* Booking Section */
+.social-media-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201, 169, 110, 0.3);
+    box-shadow: var(--shadow-hover);
+}
+
+.social-media-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.social-media-item:hover .social-media-icon {
+    transform: scale(1.1);
+}
+
+.social-media-icon.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+}
+
+.social-media-icon.viber {
+    background: linear-gradient(135deg, #7360F2, #8B5CF6);
+}
+
+.social-media-icon.facebook {
+    background: linear-gradient(135deg, #1877F2, #3B5998);
+}
+
+.social-media-icon.instagram {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+}
+
+.social-media-details h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-color);
+}
+
+.social-media-details p {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+
+/* ============================================
+   BUTTON STYLING - GLOBAL
+============================================ */
+
+/* Base button */
+.btn, .booking-action, .contact-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: clamp(0.75rem, 2vw, 1.125rem) clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Primary buttons */
+.btn, .booking-action.primary {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: none;
+    box-shadow: 0 6px 15px rgba(201, 169, 110, 0.4);
+}
+
+.btn:hover, .booking-action.primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 169, 110, 0.5);
+}
+
+/* Secondary buttons */
+.btn-secondary, .booking-action.secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-secondary:hover, .booking-action.secondary:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+    box-shadow: 0 8px 20px rgba(201, 169, 110, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Hero buttons - ensure above overlay */
+.hero .btn, .hero .booking-action {
+    z-index: 2;
+    position: relative;
+}
+
+/* Booking buttons */
+.booking-action {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.booking-action:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(201, 169, 110, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Contact buttons */
+.contact-action {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.75rem 1.5rem;
+}
+
+.contact-action:hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero .btn, .btn, .btn-secondary, .booking-action, .contact-action {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Make Call/Email buttons stand out */
+.booking-action,
+.contact-action {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: none;
+    box-shadow: 0 6px 15px rgba(201, 169, 110, 0.4);
+    transition: var(--transition);
+}
+
+.booking-action:hover,
+.contact-action:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 169, 110, 0.5);
+    color: var(--secondary);
+}
+
+/* Optional: add small gap for icon + text */
+.booking-action i,
+.contact-action i {
+    margin-right: 0.5rem;
+}
+
+        /* ============================================
+           BOOKING SECTION
+        ============================================ */
         .booking-section {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--card-bg) 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .booking-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3 1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c9a96e' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-
         .booking-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1.5rem, 3vw, 2.5rem);
         }
 
         .booking-card {
             background-color: rgba(255, 255, 255, 0.03);
             border-radius: var(--radius);
-            padding: 50px 40px;
+            padding: clamp(1.5rem, 3vw, 3.125rem) clamp(1.5rem, 3vw, 2.5rem);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -1003,7 +1319,7 @@
         }
 
         .booking-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             border-color: rgba(201, 169, 110, 0.3);
             box-shadow: var(--shadow-hover);
         }
@@ -1019,28 +1335,79 @@
         }
 
         .booking-icon {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
             color: var(--primary);
-            margin-bottom: 25px;
+            margin-bottom: clamp(1rem, 2vw, 1.5625rem);
         }
 
         .booking-card h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
             color: var(--text-color);
         }
 
         .booking-card p {
             color: var(--gray);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.7;
+            margin-bottom: clamp(1rem, 2vw, 1.875rem);
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
         }
 
-        /* Footer */
+        .booking-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .booking-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            
+            padding: 1rem 1.25rem;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+            
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            text-decoration: none;
+            cursor: pointer;
+            
+            transition:
+            background-color 0.3s ease,
+            color 0.3s ease,
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            border-color 0.3s ease;
+        }
+
+        .booking-action:hover {
+            background-color: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .booking-action.primary {
+            background-color: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+        
+        .booking-action.primary:hover {
+            background-color: var(--primary-light);}
+
+        /* ============================================
+           FOOTER
+        ============================================ */
         footer {
             background-color: var(--secondary);
-            padding: 80px 0 30px;
+            padding: clamp(3rem, 6vw, 5rem) 0 1.875rem;
             position: relative;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             transition: var(--transition);
@@ -1053,16 +1420,16 @@
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
+            gap: clamp(2rem, 4vw, 3.125rem);
+            margin-bottom: clamp(2rem, 4vw, 3.125rem);
         }
 
         .footer-col h3 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            margin-bottom: clamp(1rem, 2vw, 1.5625rem);
             color: var(--text-color);
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 0.75rem;
         }
 
         .footer-col h3::after {
@@ -1070,19 +1437,20 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 50px;
+            width: 3.125rem;
             height: 2px;
             background-color: var(--primary);
         }
 
         .footer-col p {
             color: var(--gray);
-            margin-bottom: 20px;
-            line-height: 1.8;
+            margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+            line-height: 1.7;
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
         }
 
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 0.75rem;
         }
 
         .footer-links a {
@@ -1090,7 +1458,8 @@
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
         }
 
         .footer-links a:hover {
@@ -1105,122 +1474,27 @@
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 1.875rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
         }
 
         .light-theme .copyright {
             border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Lightbox */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            backdrop-filter: blur(20px);
-        }
-
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            transform: scale(0.9);
-            transition: var(--transition);
-        }
-
-        .lightbox.active .lightbox-content {
-            transform: scale(1);
-        }
-
-        .lightbox img {
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: var(--radius);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lightbox-close:hover {
-            color: var(--primary);
-        }
-
-        .lightbox-caption {
-            position: absolute;
-            bottom: -40px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(201, 169, 110, 0.2);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* GST Notice */
+        /* ============================================
+           GST NOTICE
+        ============================================ */
         .gst-notice {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+            padding: clamp(1rem, 2vw, 1.25rem);
             background-color: var(--card-bg);
             border-radius: var(--radius);
             color: var(--gray);
-            font-size: 1rem;
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -1232,159 +1506,237 @@
             color: var(--primary);
         }
 
-        /* Clickable Contact Elements */
-        .clickable-contact {
-            display: inline-flex;
+        /* ============================================
+           LOADING SCREEN
+        ============================================ */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            margin: 10px 0;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
-        .light-theme .clickable-contact {
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
         }
 
-        .clickable-contact:hover {
-            background-color: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-3px);
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        .clickable-contact i {
-            font-size: 1.2rem;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 4rem;
-            }
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            }
-        }
-
+        /* ============================================
+           RESPONSIVE BREAKPOINTS
+        ============================================ */
         @media (max-width: 992px) {
-            .about-content, .contact-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            .section-title h2 {
-                font-size: 3rem;
-            }
             .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 0;
                 left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
                 background-color: var(--secondary);
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: flex-start;
-                padding-top: 60px;
+                padding: 5rem 2rem 2rem;
                 transition: var(--transition);
                 z-index: 999;
-                gap: 30px;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                gap: 1.5rem;
+                box-shadow: var(--shadow-hover);
             }
+
             .nav-links.active {
                 left: 0;
             }
+
             .mobile-menu-btn {
                 display: block;
+                order: 3;
             }
+
+            .theme-toggle {
+                margin-left: 0;
+                order: 2;
+            }
+
+            .navbar {
+                justify-content: space-between;
+            }
+
+            .logo {
+                order: 1;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
             .menu-filter-bar {
                 overflow-x: auto;
                 justify-content: flex-start;
-                padding-bottom: 20px;
+                padding-bottom: 1rem;
                 -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
             }
+
+            .menu-filter-bar::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .menu-filter-bar::-webkit-scrollbar-thumb {
+                background-color: var(--primary);
+                border-radius: 2px;
+            }
+
             .filter-chip {
                 flex-shrink: 0;
             }
+
             .advanced-filters {
                 overflow-x: auto;
                 justify-content: flex-start;
-                padding-bottom: 10px;
+                padding-bottom: 0.5rem;
+            }
+
+            .about-img img {
+                height: 300px;
+            }
+            
+            .about-section p,
+            .ambiance-section p,
+            .menu-section p {
+                text-align: justify;
+                text-justify: inter-word;
+            }
+            @media (max-width: 768px) {
+                .about-section p,
+                .ambiance-section p,
+                .menu-section p {
+                    text-align: left;
+                }
+            }
+
+
+            .justify-text {
+                text-align: justify;
+                text-justify: inter-word;
+            }
+            
+            @media (max-width: 768px) {
+                .justify-text {
+                    text-align: left;
+                }
+            }
+
+
+
+            .carousel-nav {
+                display: none;
+            }
+
+            .carousel-dots {
+                bottom: 20px;
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            .hero p {
-                font-size: 1.1rem;
-            }
             .section {
-                padding: 80px 0;
+                padding: clamp(2.5rem, 6vw, 5rem) 0;
             }
+
+            .hero {
+                min-height: 80vh;
+            }
+
             .menu-items {
                 grid-template-columns: 1fr;
             }
+
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
             }
+
+            .gallery-item {
+                height: 200px;
+            }
+
             .booking-cards {
                 grid-template-columns: 1fr;
             }
-            .hero-btns {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            .about-img img {
-                height: 400px;
-            }
-            .theme-toggle {
-                margin-left: 10px;
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2.2rem;
+        @media (max-width: 480px) {
+            .logo-main {
+                font-size: 1.3rem;
             }
-            .section-title h2 {
-                font-size: 2.2rem;
+
+            .logo-tagline {
+                font-size: 0.6rem;
             }
-            .about-text h2 {
-                font-size: 2.2rem;
-            }
-            .booking-card {
-                padding: 40px 25px;
-            }
+
             .info-cards {
                 grid-template-columns: 1fr;
             }
+
             .contact-item {
-                padding: 20px;
+                padding: 1.25rem;
+            }
+
+            .contact-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1.2rem;
+            }
+
+            .booking-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .gallery-item {
+                height: 180px;
             }
         }
 
-        @media (max-width: 400px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .text-center {
+            text-align: center;
         }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
     </style>
 </head>
 <body>
@@ -1393,25 +1745,24 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Lightbox for Gallery -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="lightbox-content">
-            <img id="lightboxImg" src="" alt="">
-            <div class="lightbox-caption" id="lightboxCaption"></div>
-        </div>
-    </div>
-
-    <!-- Header -->
+    <!-- Header with Integrated Logo -->
     <header id="header">
         <div class="container">
             <nav class="navbar">
+                <!-- LOGO INTEGRATION -->
                 <a href="#home" class="logo">
-                    <i class="fas fa-wind logo-icon"></i>
-                    Breeze<span>View</span>
+                    <div class="logo-main">
+                        <img src="images/logo.png" alt="BreezeView wordmark with a stylized gold leaf icon, includes the tagline Luxury Dining & Karaoke and Since 2024, conveying an elegant seaside dining identity" class="logo-img">
+                        <div class="logo-text">
+                             <div class="logo-title">
+                                Breeze<span style="color: var(--primary);">View</span>
+                            </div>
+                            <div class="logo-tagline">Luxury Dining & Karaoke</div>
+                            <div class="logo-year">Since 2024</div>
+                        </div>
+                    </div>
                 </a>
+                
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#menu">Menu</a></li>
@@ -1420,26 +1771,47 @@
                     <li><a href="#booking">Bookings</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+                
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
                 </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
                     <i class="fas fa-bars"></i>
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Auto-Swiping Background Carousel -->
     <section class="hero" id="home">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-food-plate-with-avocado-and-vegetables-52583-large.mp4" type="video/mp4">
-        </video>
+        <!-- Background Carousel -->
+        <div class="hero-carousel" id="heroCarousel">
+            <div class="carousel-slide slide-1 active"></div>
+            <div class="carousel-slide slide-2"></div>
+            <div class="carousel-slide slide-3"></div>
+            <div class="carousel-slide slide-4"></div>
+            <div class="carousel-slide slide-5"></div>
+        </div>
+        
+        <!-- Carousel Navigation Arrows -->
+        <div class="carousel-nav">
+            <button class="carousel-arrow prev-arrow" id="prevArrow" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-arrow next-arrow" id="nextArrow" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Carousel Dots -->
+        <div class="carousel-dots" id="carouselDots"></div>
+        
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="animate">Where Luxury Meets Culinary Art</h1>
-                <p class="animate">Experience breathtaking views and exquisite flavors at Sh.Narudhoo's most prestigious dining destination. A symphony of taste, ambiance, and service awaits.</p>
+                <h1 class="animate">Good Food. Great Views. Even Better Vibes.</h1>
+                <p class="animate">Welcome to BreezeView, your go-to spot in Sh. Narudhoo for delicious food, relaxing views, and fun karaoke nights.
+Whether you're here for a quick bite, a special dinner, or a night of singing with friends, we've got the food, the mood, and the music to make it memorable.</p>
                 <div class="hero-btns">
                     <a href="#menu" class="btn animate">
                         <i class="fas fa-utensils"></i>
@@ -1491,16 +1863,12 @@
         <div class="container">
             <div class="section-title">
                 <h2>Signature Menu</h2>
-                <p>Each dish is a masterpiece, crafted with the finest ingredients and traditional techniques</p>
+                <p>Our favorite dishes, made with fresh ingredients and lots of care. From local flavors to customer favorites, these are the dishes we’re proud to serve.</p>
             </div>
             
             <div class="menu-filter-container">
                 <div class="menu-filter-bar">
-                    <div class="filter-chip active" data-filter="all">
-                        <i class="fas fa-th-large"></i>
-                        All Dishes
-                    </div>
-                    <div class="filter-chip" data-filter="category">
+                    <div class="filter-chip active" data-filter="category">
                         <i class="fas fa-list"></i>
                         By Category
                     </div>
@@ -1511,6 +1879,10 @@
                     <div class="filter-chip" data-filter="spicy">
                         <i class="fas fa-fire"></i>
                         Spicy Favorites
+                    </div>
+                    <div class="filter-chip" data-filter="premium">
+                        <i class="fas fa-crown"></i>
+                        Premium Dishes
                     </div>
                 </div>
                 
@@ -1524,56 +1896,78 @@
             </div>
             
             <div class="gst-notice">
-                <p><strong>Note:</strong> All prices include 8% GST as per the updated menu.</p>
+                <p><strong>Note:</strong> All prices include 8% GST as per the updated menu. All prices in MVR.</p>
             </div>
         </div>
     </section>
 
-    <!-- Motion Photo Gallery -->
+    <!-- Photo Gallery with Local Images -->
     <section class="section" id="gallery">
         <div class="container">
             <div class="section-title">
                 <h2>Our Ambiance</h2>
-                <p>Step into our world of luxury dining and entertainment</p>
+                <p>Take a look inside BreezeView. Cozy spaces, beautiful views, and a relaxed atmosphere — the perfect place to sit back and enjoy your time.</p>
             </div>
-            
             <div class="gallery-grid">
-                <div class="gallery-item" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Restaurant Interior">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Luxury Dining Area</div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Signature Dish">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Signature Tuna Dish</div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Waterfront View">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Breathtaking Waterfront</div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-index="3">
-                    <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Karaoke Lounge">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Premium Karaoke Lounge</div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-index="4">
-                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chef's Special">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Chef's Special Platter</div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-index="5">
-                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Evening Atmosphere">
-                    <div class="gallery-overlay">
-                        <div class="gallery-caption">Evening Ambiance</div>
-                    </div>
-                </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery1.jpg" alt="" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery2.jpg" alt="Luxury Dining Area" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery3.jpg" alt="Signature Dish" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery4.jpg" alt="Karaoke Lounge" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery5.jpg" alt="Chef’s Special" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery6.jpg" alt="Evening Ambiance" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery7.jpg" alt="Dining Experience" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="./images/my-gallery8.jpg" alt="Night View" loading="lazy">
+        <div class="gallery-overlay">
+            <div class="gallery-caption"></div>
+        </div>
+    </div>
+
+</div>
+
             </div>
         </div>
     </section>
@@ -1583,18 +1977,14 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-img animate">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Our Story">
+                    <img src="./images/my-background6.jpg" 
+                    alt="BreezeView interior dining space showcasing luxury ambiance"
+                    loading="lazy">
                 </div>
                 <div class="about-text animate" style="animation-delay: 0.2s;">
                     <h2>The Breeze View Story</h2>
-                    <p>Born from a passion for exceptional dining and breathtaking views, Breeze View Restaurant has been the crown jewel of Sh.Narudhoo since our inception. We believe that dining is not just about food, but about creating memorable experiences.</p>
-                    <p>Our philosophy combines traditional Maldivian culinary heritage with modern techniques, using only the freshest locally-sourced ingredients. Each dish tells a story of our islands' rich culture and abundant natural resources.</p>
-                    
-                    <div class="chef-spotlight">
-                        <h3>Meet Our Head Chef</h3>
-                        <p>With over 20 years of international culinary experience, Chef Ahmed brings innovation and passion to every plate. His expertise in blending traditional flavors with contemporary presentation has earned us numerous accolades.</p>
-                    </div>
-                </div>
+                    <p class="justify-text">BreezeView was created as a place where people can come together to relax, enjoy great food, and take in the view. From the beginning, our goal has been simple — to offer a welcoming space with a comfortable atmosphere, friendly service, and a memorable dining experience.</p>
+                    <p>Whether you’re visiting for a casual meal, a family gathering, or a special night out, we aim to make every guest feel at home while delivering quality and care in everything we do.</p>
             </div>
         </div>
     </section>
@@ -1604,7 +1994,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>Book Your Experience</h2>
-                <p>Secure your table or karaoke room with a simple click</p>
+                <p>Book your table or karaoke room quickly by email or phone.</p>
             </div>
             
             <div class="booking-cards">
@@ -1613,21 +2003,17 @@
                         <i class="fas fa-utensils"></i>
                     </div>
                     <h3>Restaurant Reservation</h3>
-                    <p>Experience our premium dining with breathtaking ocean views. Reserve your table for an unforgettable culinary journey.</p>
+                    <p>Book your table and enjoy delicious food with amazing ocean views. A relaxed, tasty, and memorable experience awaits!</p>
                     
-                    <a href="mailto:breezeview2024@gmail.com?subject=Restaurant Reservation&body=Hello, I would like to make a reservation. Please contact me with available times.%0D%0A%0D%0AName:%0D%0APreferred Date:%0D%0ANumber of Guests:%0D%0ASpecial Requests:" class="btn">
-                        <i class="fas fa-envelope"></i>
-                        Email to Reserve
-                    </a>
-                    
-                    <div style="margin-top: 30px;">
-                        <a href="tel:9253535" class="clickable-contact">
+                    <div class="booking-actions">
+                        <a href="mailto:breezeview2024@gmail.com?subject=Restaurant Reservation&body=Hello, I would like to make a reservation. Please contact me with available times.%0D%0A%0D%0AName:%0D%0APreferred Date:%0D%0ANumber of Guests:%0D%0ASpecial Requests:" class="booking-action">
+                            <i class="fas fa-envelope"></i>
+                            Email to Reserve
+                        </a>
+                        <a href="tel:9609253535" class="booking-action">
                             <i class="fas fa-phone"></i>
                             Call Now: 9253535
                         </a>
-                        <p style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
-                            One click to call for immediate assistance
-                        </p>
                     </div>
                 </div>
                 
@@ -1636,33 +2022,29 @@
                         <i class="fas fa-music"></i>
                     </div>
                     <h3>Karaoke Room Booking</h3>
-                    <p>Unleash your inner superstar in our state-of-the-art karaoke lounge. Perfect for parties, celebrations, or fun nights out.</p>
+                    <p>Ready to sing your heart out? Our karaoke lounge is perfect for parties, fun nights, or just letting loose with friends.</p>
                     
-                    <a href="mailto:breezeview2024@gmail.com?subject=Karaoke Room Booking&body=Hello, I would like to book a karaoke room.%0D%0A%0D%0AName:%0D%0APreferred Date & Time:%0D%0ANumber of People:%0D%0ARoom Preference (Standard/VIP/Party):%0D%0ASong Requests:" class="btn">
-                        <i class="fas fa-envelope"></i>
-                        Email to Book
-                    </a>
-                    
-                    <div style="margin-top: 30px;">
-                        <a href="tel:9253535" class="clickable-contact">
+                    <div class="booking-actions">
+                        <a href="mailto:breezeview2024@gmail.com?subject=Karaoke Room Booking&body=Hello, I would like to book a karaoke room.%0D%0A%0D%0AName:%0D%0APreferred Date & Time:%0D%0ANumber of People:%0D%0ARoom Preference (Standard/VIP/Party):%0D%0ASong Requests:" class="booking-action">
+                            <i class="fas fa-envelope"></i>
+                            Email to Book
+                        </a>
+                        <a href="tel:9609253535" class="booking-action">
                             <i class="fas fa-phone"></i>
                             Call Now: 9253535
                         </a>
-                        <p style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
-                            One click to call for immediate assistance
-                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Enhanced Contact Section -->
     <section class="section contact" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contact Us</h2>
-                <p>Get in touch with us for any inquiries or special requests</p>
+                <p>Reach out to us — we’d love to hear from you!</p>
             </div>
             
             <div class="contact-content">
@@ -1674,7 +2056,6 @@
                         <div class="contact-details">
                             <h3>Our Location</h3>
                             <p>Sh.Narudhoo, Maldives</p>
-                            <p>Waterfront dining with panoramic ocean views</p>
                         </div>
                     </div>
                     
@@ -1684,15 +2065,13 @@
                         </div>
                         <div class="contact-details">
                             <h3>Phone & WhatsApp</h3>
-                            <p>For reservations and inquiries</p>
-                            <div style="margin-top: 15px;">
-                                <a href="tel:9253535" class="clickable-contact">
+                            <p>For quick questions, reservations, or just a chat</p>
+                            <div class="contact-actions">
+                                <a href="tel:9609253535" class="contact-action">
                                     <i class="fas fa-phone"></i>
                                     Call: 9253535
                                 </a>
-                            </div>
-                            <div style="margin-top: 10px;">
-                                <a href="https://wa.me/9609253535" class="clickable-contact">
+                                <a href="https://wa.me/9609253535" class="contact-action">
                                     <i class="fab fa-whatsapp"></i>
                                     WhatsApp: 9253535
                                 </a>
@@ -1706,9 +2085,9 @@
                         </div>
                         <div class="contact-details">
                             <h3>Email Us</h3>
-                            <p>For detailed inquiries and special requests</p>
-                            <div style="margin-top: 15px;">
-                                <a href="mailto:breezeview2024@gmail.com" class="clickable-contact">
+                            <p>For detailed inquiries, special requests, or anything else you’d like to share.</p>
+                            <div class="contact-actions">
+                                <a href="mailto:breezeview2024@gmail.com" class="contact-action">
                                     <i class="fas fa-envelope"></i>
                                     breezeview2024@gmail.com
                                 </a>
@@ -1716,16 +2095,53 @@
                         </div>
                     </div>
                     
-                    <div class="social-links animate" style="animation-delay: 0.3s;">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="TripAdvisor"><i class="fab fa-tripadvisor"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <!-- Social Media Section -->
+                    <div class="social-media-section animate" style="animation-delay: 0.3s;">
+                        <h3 style="margin-bottom: 1rem; color: var(--text-color);">Connect With Us</h3>
+                        <div class="social-media-grid">
+                            <a href="https://wa.me/9609253535" class="social-media-item">
+                                <div class="social-media-icon whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="social-media-details">
+                                    <h4>WhatsApp</h4>
+                                    <p>Quick chat & reservations</p>
+                                </div>
+                            </a>
+                            <a href="viber://add?number=9609253535" class="social-media-item">
+                                <div class="social-media-icon viber">
+                                    <i class="fab fa-viber"></i>
+                                </div>
+                                <div class="social-media-details">
+                                    <h4>Viber</h4>
+                                    <p>Message us anytime</p>
+                                </div>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="social-media-item">
+                                <div class="social-media-icon facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                                <div class="social-media-details">
+                                    <h4>Facebook</h4>
+                                    <p>Updates & events</p>
+                                </div>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="social-media-item">
+                                <div class="social-media-icon instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div class="social-media-details">
+                                    <h4>Instagram</h4>
+                                    <p>Photos & stories</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer>
@@ -1733,7 +2149,18 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>Breeze View</h3>
-                    <p>Experience the pinnacle of luxury dining and entertainment at Sh.Narudhoo's most prestigious destination. Where every moment becomes a cherished memory.</p>
+                    <p>Your go-to destination for delicious meals, karaoke fun, and breathtaking views. Every visit is a chance to unwind and enjoy life a little more.</p>
+                    <div class="mt-2">
+                        <!-- Logo in Footer -->
+                        <a href="#home" class="logo" style="align-items: flex-start;">
+                            <div class="logo-main">
+                                <i class="fas fa-wind logo-icon"></i>
+                                Breeze<span style="color: var(--primary);">View</span>
+                            </div>
+                            <div class="logo-tagline">Luxury Dining & Karaoke</div>
+                            <div class="logo-year">Since 2024</div>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer-col">
@@ -1751,10 +2178,10 @@
                 <div class="footer-col">
                     <h3>Hours & Info</h3>
                     <p><strong>Restaurant:</strong><br>Everyday: 5:30 AM - 12:00 AM</p>
-                    <p><strong>Karaoke Lounge:</strong><br>6:00 PM - 12:00 AM</p>
+                    <p><strong>Karaoke Lounge:</strong><br>9:00 AM - 12:00 AM</p>
                     <p><strong>Location:</strong><br>Sh.Narudhoo, Maldives</p>
-                    <div style="margin-top: 15px;">
-                        <a href="tel:9253535" class="clickable-contact" style="display: inline-flex; padding: 8px 16px;">
+                    <div class="mt-2">
+                        <a href="tel:9253535" class="clickable-contact" style="display: inline-flex; padding: 0.5rem 1rem;">
                             <i class="fas fa-phone"></i>
                             Call: 9253535
                         </a>
@@ -1763,13 +2190,13 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 Breeze View Restaurant. All Rights Reserved. | All prices include 8% GST | Crafted with <i class="fas fa-heart" style="color: var(--primary);"></i> in Maldives</p>
+                <p>&copy; 2026 Breeze View Restaurant. All Rights Reserved. | All prices include 8% GST | Website by Spec.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Complete Menu Data - Combined from both menus
+        // Complete Menu Data - All items with prices
         const completeMenuData = {
             "Tea & Coffee": {
                 duration: "05-10 minutes",
@@ -1793,7 +2220,7 @@
                     { code: "117", name: "Yeye packet (Hard)", price: "12", desc: "Strong traditional packet coffee", image: "https://images.unsplash.com/photo-1637085046560-43cc153c86e0?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
                     { code: "118", name: "Ice Coffee", price: "25", desc: "Chilled coffee beverage", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
                     { code: "119", name: "Black Tea", price: "5", desc: "Classic black tea", image: "https://images.unsplash.com/photo-1617543414010-212c4537604d?q=80&w=2346&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
-                    { code: "120", name: "Dhiyaa Kiru Coffee", price: "12", desc: "Traditional Maldivian coffee", image: "https://images.pexels.com/photos/34967000/pexels-photo-34967000.jpeg?_gl=1*1ex2ltb*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ0OTU4ODckbzIkZzEkdDE3NjQ0OTU5MDYkajQxJGwwJGgw", tags: ["beverage", "non-spicy"] },
+                    { code: "120", name: "Dhiyaa Kiru Coffee", price: "12", desc: "Traditional Maldivian coffee", image: "https://images.pexels.com/photos/34967000/pexels-photo-34967000.jpeg?_gl=1*1ex2ltb*_ga*MTU1MzA5NjU1OS4xNzY0NDg5MTMx*_ga_8JE65Q40S6*czE3NjQ0OTU4ODckbzIkZzEkdDE3NjQ0OTU5MDYkajQxJGwwJGhw", tags: ["beverage", "non-spicy"] },
                     { code: "121", name: "Bombay Tea", price: "20", desc: "Indian-style tea", image: "https://images.unsplash.com/photo-1634299406775-90f32b656536?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
                     { code: "122", name: "Masala Tea", price: "20", desc: "Spiced Indian tea", image: "https://images.unsplash.com/photo-1559275117-d096eb5d85b2?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "spicy"] },
                     { code: "123", name: "Strawberry Tea", price: "20", desc: "Fruity strawberry tea", image: "https://images.unsplash.com/photo-1597318181412-49af291f617f?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "non-spicy"] },
@@ -2049,45 +2476,17 @@
             "Signature Dishes": {
                 duration: "20-45 minutes",
                 items: [
-                    { id: 1, name: "Tuna Pizza", price: "120", desc: "Fresh tuna with mozzarella, cherry tomatoes, and herbs on thin crust", image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "seafood", "premium", "spicy"], badge: "Chef's Pick" },
-                    { id: 2, name: "Chicken Biryani", price: "95", desc: "Fragrant basmati rice with tender chicken and aromatic spices", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["spicy", "chef", "premium"], badge: "Popular" },
-                    { id: 3, name: "Seafood Platter", price: "140", desc: "Grilled lobster, prawns, fish with garlic butter and lemon", image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["seafood", "premium", "chef"], badge: "Premium" },
-                    { id: 4, name: "Vegetable Curry", price: "60", desc: "Seasonal vegetables in coconut curry with aromatic spices", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian", "spicy"], badge: "Healthy" },
-                    { id: 5, name: "Tandoori Chicken", price: "130", desc: "Half chicken marinated in yogurt and spices, clay oven roasted", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "spicy", "premium"], badge: "Signature" },
-                    { id: 6, name: "Avocado Salad", price: "55", desc: "Fresh avocado, cherry tomatoes, mixed greens with lemon dressing", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian"], badge: "Fresh" },
-                    { id: 7, name: "Lamb Chops", price: "150", desc: "Grilled lamb chops with mint sauce and roasted vegetables", image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["premium", "chef"], badge: "Premium" },
-                    { id: 8, name: "Chocolate Milkshake", price: "55", desc: "Rich chocolate milkshake with whipped cream and chocolate shavings", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "vegetarian"], badge: "Sweet" }
+                    { code: "500", name: "Tuna Pizza", price: "120", desc: "Fresh tuna with mozzarella, cherry tomatoes, and herbs on thin crust", image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "seafood", "premium", "spicy"], badge: "Chef's Pick" },
+                    { code: "501", name: "Chicken Biryani", price: "95", desc: "Fragrant basmati rice with tender chicken and aromatic spices", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["spicy", "chef", "premium"], badge: "Popular" },
+                    { code: "502", name: "Seafood Platter", price: "140", desc: "Grilled lobster, prawns, fish with garlic butter and lemon", image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["seafood", "premium", "chef"], badge: "Premium" },
+                    { code: "503", name: "Vegetable Curry", price: "60", desc: "Seasonal vegetables in coconut curry with aromatic spices", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian", "spicy"], badge: "Healthy" },
+                    { code: "504", name: "Tandoori Chicken", price: "130", desc: "Half chicken marinated in yogurt and spices, clay oven roasted", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "spicy", "premium"], badge: "Signature" },
+                    { code: "505", name: "Avocado Salad", price: "55", desc: "Fresh avocado, cherry tomatoes, mixed greens with lemon dressing", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian"], badge: "Fresh" },
+                    { code: "506", name: "Lamb Chops", price: "150", desc: "Grilled lamb chops with mint sauce and roasted vegetables", image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["premium", "chef"], badge: "Premium" },
+                    { code: "507", name: "Chocolate Milkshake", price: "55", desc: "Rich chocolate milkshake with whipped cream and chocolate shavings", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "vegetarian"], badge: "Sweet" }
                 ]
             }
         };
-
-        // Gallery Images
-        const galleryImages = [
-            {
-                src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Luxury Dining Area"
-            },
-            {
-                src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Signature Tuna Dish"
-            },
-            {
-                src: "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Breathtaking Waterfront"
-            },
-            {
-                src: "https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Premium Karaoke Lounge"
-            },
-            {
-                src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Chef's Special Platter"
-            },
-            {
-                src: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                caption: "Evening Ambiance"
-            }
-        ];
 
         // DOM Elements
         const loadingScreen = document.getElementById('loadingScreen');
@@ -2098,14 +2497,19 @@
         const menuItemsEl = document.getElementById('menuItems');
         const filterChips = document.querySelectorAll('.filter-chip');
         const advancedFiltersEl = document.getElementById('advancedFilters');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxCaption = document.getElementById('lightboxCaption');
-        const lightboxClose = document.getElementById('lightboxClose');
+        const heroCarousel = document.getElementById('heroCarousel');
+        const carouselDots = document.getElementById('carouselDots');
+        const prevArrow = document.getElementById('prevArrow');
+        const nextArrow = document.getElementById('nextArrow');
+
+        // Carousel Variables
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        let carouselInterval;
 
         // Current filter state
-        let currentFilter = 'all';
+        let currentFilter = 'category'; // Default to showing by category
         let currentAdvancedFilters = [];
 
         // Initialize the page
@@ -2116,10 +2520,13 @@
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                 }, 500);
-            }, 1000);
+            }, 800);
 
             // Initialize theme
             initTheme();
+            
+            // Initialize carousel
+            initCarousel();
             
             // Generate menu items
             generateMenuItems();
@@ -2129,10 +2536,76 @@
             
             // Initialize animations
             initAnimations();
-            
-            // Initialize lightbox
-            initLightbox();
         });
+
+        // Initialize Carousel
+        function initCarousel() {
+            // Create dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('data-index', i);
+                dot.addEventListener('click', () => goToSlide(i));
+                carouselDots.appendChild(dot);
+            }
+            
+            // Start auto-slide
+            startAutoSlide();
+            
+            // Add arrow event listeners
+            prevArrow.addEventListener('click', () => {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+            
+            nextArrow.addEventListener('click', () => {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+            
+            // Pause auto-slide on hover
+            heroCarousel.addEventListener('mouseenter', stopAutoSlide);
+            heroCarousel.addEventListener('mouseleave', startAutoSlide);
+        }
+
+        // Carousel Functions
+        function goToSlide(index) {
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelectorAll('.carousel-dot').forEach(dot => dot.classList.remove('active'));
+            
+            // Update current slide
+            currentSlide = index;
+            
+            // Add active class to current slide and dot
+            slides[currentSlide].classList.add('active');
+            document.querySelectorAll('.carousel-dot')[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(prev);
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide(); // Clear any existing interval
+            carouselInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoSlide() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
+        }
 
         // Initialize Theme
         function initTheme() {
@@ -2176,15 +2649,15 @@
             const filterGroups = {
                 "Spice Level": ["spicy", "non-spicy"],
                 "Dietary": ["vegetarian", "seafood"],
-                "Type": ["main", "breakfast", "beverage", "dessert", "snack", "salad", "soup", "side"],
-                "Special": ["chef", "premium", "traditional", "kids"]
+                "Type": ["main", "breakfast", "beverage", "dessert", "snack", "salad", "soup", "side", "kids"],
+                "Special": ["chef", "premium", "traditional"]
             };
             
             // Generate filter buttons
             for (const group in filterGroups) {
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'filter-group';
-                groupDiv.innerHTML = `<strong style="color: var(--text-color); margin-right: 10px;">${group}:</strong>`;
+                groupDiv.innerHTML = `<strong style="color: var(--text-color); margin-right: 10px; font-size: 0.9rem;">${group}:</strong>`;
                 
                 filterGroups[group].forEach(tag => {
                     if (allTags.has(tag)) {
@@ -2214,100 +2687,100 @@
         // Generate Menu Items
         function generateMenuItems() {
             menuItemsEl.innerHTML = '';
-            let allItems = [];
             
-            // Collect items based on current filter
-            if (currentFilter === 'all') {
-                for (const category in completeMenuData) {
-                    const items = completeMenuData[category].items;
-                    items.forEach(item => {
-                        item.category = category;
-                        item.duration = completeMenuData[category].duration;
-                    });
-                    allItems = allItems.concat(items);
-                }
-            } else if (currentFilter === 'category') {
-                // Show category headers
-                for (const category in completeMenuData) {
+            // Always show by category (as requested)
+            for (const category in completeMenuData) {
+                // Check if category should be shown based on current filter
+                if (currentFilter === 'category' || 
+                    (currentFilter === 'chef' && categoryHasChefItems(category)) ||
+                    (currentFilter === 'spicy' && categoryHasSpicyItems(category)) ||
+                    (currentFilter === 'premium' && categoryHasPremiumItems(category))) {
+                    
                     const categoryHeader = document.createElement('div');
-                    categoryHeader.className = 'category-header';
+                    categoryHeader.className = 'category-header animate';
                     categoryHeader.innerHTML = `
-                        <h3 style="font-size: 2rem; margin: 40px 0 20px; color: var(--text-color); border-bottom: 2px solid var(--primary); padding-bottom: 10px;">
-                            ${category} <span style="font-size: 1rem; color: var(--gray);">${completeMenuData[category].duration ? `(${completeMenuData[category].duration})` : ''}</span>
+                        <h3>
+                            ${category} 
+                            <span style="font-size: 0.9rem; color: var(--gray);">
+                                ${completeMenuData[category].duration ? `(${completeMenuData[category].duration})` : ''}
+                            </span>
                         </h3>
                     `;
                     menuItemsEl.appendChild(categoryHeader);
                     
                     const items = completeMenuData[category].items;
+                    let displayedItems = 0;
+                    
                     items.forEach((item, index) => {
-                        if (filterItemByAdvancedFilters(item)) {
-                            const itemEl = createMenuItemElement(item, index, category);
+                        // Apply filter logic
+                        let shouldShow = true;
+                        
+                        if (currentFilter === 'chef' && (!item.tags || !item.tags.includes('chef'))) {
+                            shouldShow = false;
+                        }
+                        
+                        if (currentFilter === 'spicy' && (!item.tags || !item.tags.includes('spicy'))) {
+                            shouldShow = false;
+                        }
+                        
+                        if (currentFilter === 'premium' && (!item.tags || !item.tags.includes('premium'))) {
+                            shouldShow = false;
+                        }
+                        
+                        // Apply advanced filters
+                        if (shouldShow && currentAdvancedFilters.length > 0) {
+                            if (!item.tags || !currentAdvancedFilters.every(filter => item.tags.includes(filter))) {
+                                shouldShow = false;
+                            }
+                        }
+                        
+                        if (shouldShow) {
+                            const itemEl = createMenuItemElement(item, displayedItems, category);
                             menuItemsEl.appendChild(itemEl);
+                            displayedItems++;
                         }
                     });
-                }
-                return; // Exit early since we handled category view
-            } else if (currentFilter === 'chef') {
-                for (const category in completeMenuData) {
-                    const items = completeMenuData[category].items.filter(item => 
-                        item.tags && item.tags.includes('chef')
-                    );
-                    items.forEach(item => {
-                        item.category = category;
-                        item.duration = completeMenuData[category].duration;
-                    });
-                    allItems = allItems.concat(items);
-                }
-            } else if (currentFilter === 'spicy') {
-                for (const category in completeMenuData) {
-                    const items = completeMenuData[category].items.filter(item => 
-                        item.tags && item.tags.includes('spicy')
-                    );
-                    items.forEach(item => {
-                        item.category = category;
-                        item.duration = completeMenuData[category].duration;
-                    });
-                    allItems = allItems.concat(items);
+                    
+                    // If no items in this category match filters, remove the category header
+                    if (displayedItems === 0) {
+                        menuItemsEl.removeChild(categoryHeader);
+                    }
                 }
             }
-            
-            // Apply advanced filters
-            allItems = allItems.filter(item => filterItemByAdvancedFilters(item));
-            
-            // Generate item elements
-            allItems.forEach((item, index) => {
-                const itemEl = createMenuItemElement(item, index);
-                menuItemsEl.appendChild(itemEl);
-            });
             
             // Animate menu items
             setTimeout(() => {
                 document.querySelectorAll('.menu-item').forEach(item => {
                     item.classList.add('visible');
                 });
+                document.querySelectorAll('.category-header').forEach(header => {
+                    header.classList.add('visible');
+                });
             }, 100);
         }
 
-        // Filter Item by Advanced Filters
-        function filterItemByAdvancedFilters(item) {
-            if (currentAdvancedFilters.length === 0) return true;
-            
-            if (!item.tags) return false;
-            
-            return currentAdvancedFilters.every(filter => item.tags.includes(filter));
+        // Helper functions for category filtering
+        function categoryHasChefItems(category) {
+            return completeMenuData[category].items.some(item => item.tags && item.tags.includes('chef'));
+        }
+
+        function categoryHasSpicyItems(category) {
+            return completeMenuData[category].items.some(item => item.tags && item.tags.includes('spicy'));
+        }
+
+        function categoryHasPremiumItems(category) {
+            return completeMenuData[category].items.some(item => item.tags && item.tags.includes('premium'));
         }
 
         // Create Menu Item Element
         function createMenuItemElement(item, index, category = null) {
             const itemEl = document.createElement('div');
             itemEl.className = 'menu-item animate';
-            itemEl.style.animationDelay = `${index * 0.1}s`;
+            itemEl.style.animationDelay = `${index * 0.05}s`;
             
             const priceDisplay = item.price ? `MVR ${item.price}` : 'Price on request';
             const badge = item.badge ? `<div class="menu-item-badge">${item.badge}</div>` : '';
             const codeDisplay = item.code ? `<div class="menu-item-code">Code: ${item.code}</div>` : '';
-            const durationDisplay = item.duration ? `<span style="color: var(--gray); font-size: 0.9rem;">(${item.duration})</span>` : '';
-            const categoryDisplay = category ? `<span style="color: var(--primary); font-size: 0.9rem; background: rgba(201, 169, 110, 0.1); padding: 2px 8px; border-radius: 10px;">${category}</span>` : '';
             
             itemEl.innerHTML = `
                 <div class="menu-item-img">
@@ -2319,10 +2792,8 @@
                         <h3 class="menu-item-name">${item.name}</h3>
                         <div class="menu-item-price">${priceDisplay}</div>
                     </div>
-                    ${categoryDisplay}
                     <p class="menu-item-desc">${item.desc}</p>
                     ${codeDisplay}
-                    ${durationDisplay}
                     <div class="menu-item-tags">
                         ${item.tags ? item.tags.map(tag => `<span class="menu-tag">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`).join('') : ''}
                     </div>
@@ -2389,41 +2860,6 @@
             });
         }
 
-        // Initialize Lightbox
-        function initLightbox() {
-            galleryItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const index = parseInt(item.getAttribute('data-index'));
-                    const image = galleryImages[index];
-                    
-                    lightboxImg.src = image.src;
-                    lightboxCaption.textContent = image.caption;
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-            
-            // Close lightbox
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    closeLightbox();
-                }
-            });
-            
-            // Close with Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                    closeLightbox();
-                }
-            });
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
         // Mobile Menu Toggle
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -2457,6 +2893,7 @@
         // Handle image loading errors
         document.addEventListener('error', function(e) {
             if (e.target.tagName === 'IMG') {
+                // Fallback image if local images don't load
                 e.target.src = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
             }
         }, true);
