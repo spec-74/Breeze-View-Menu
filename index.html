@@ -1286,6 +1286,24 @@
     margin-right: 0.5rem;
 }
 
+@media (max-width: 480px) {
+    .contact-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .contact-action {
+        width: 100%;
+        justify-content: center;
+    }
+}
+@media (max-width: 480px) {
+    .contact-action {
+        padding: 1rem;
+        font-weight: 600;
+    }
+}
+
         /* ============================================
            BOOKING SECTION
         ============================================ */
@@ -2304,8 +2322,8 @@ Whether you're here for a quick bite, a special dinner, or a night of singing wi
                     { code: "181", name: "Mojito Cocktail Strawberry", price: "50", desc: "Strawberry mojito", image: "https://static.vecteezy.com/system/resources/previews/071/365/410/non_2x/a-red-drink-with-lime-and-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
                     { code: "182", name: "Mojito Cocktail Passion Fruit", price: "50", desc: "Passion fruit mojito", image: "https://static.vecteezy.com/system/resources/previews/066/628/063/non_2x/mojito-cocktail-passion-fruit-caribbean-style-at-sunset-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
                     { code: "183", name: "Mojito Cocktail Black Current", price: "50", desc: "Black currant mojito", image: "https://static.vecteezy.com/system/resources/previews/046/349/141/large_2x/juicy-blackberry-juice-illustrations-for-creative-projects-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
-                    { code: "184", name: "Mojito Cocktail blue curacao", price: "50", desc: "Blue curacao mojito", image: "https://static.vecteezy.com/system/resources/previews/070/274/937/non_2x/blue-cocktail-with-lime-and-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
-                    { code: "185", name: "Bull bluster (Red bull)", price: "100", desc: "Red bull cocktail", image: "https://www.thebottleclub.com/cdn/shop/articles/Vodka_Red_Bull.jpg?v=1703659513&width=2260", tags: ["beverage", "non-spicy"] },
+                    { code: "184", name: "Mojito Cocktail Blue Curacao", price: "50", desc: "Blue curacao mojito", image: "https://static.vecteezy.com/system/resources/previews/070/274/937/non_2x/blue-cocktail-with-lime-and-mint-free-photo.jpg", tags: ["beverage", "non-spicy"] },
+                    { code: "185", name: "Bull Bluster (Red bull)", price: "100", desc: "Red bull cocktail", image: "https://www.thebottleclub.com/cdn/shop/articles/Vodka_Red_Bull.jpg?v=1703659513&width=2260", tags: ["beverage", "non-spicy"] },
                     { code: "186", name: "Breeze View Passiflora", price: "100", desc: "Special passion fruit cocktail", image: "https://static.vecteezy.com/system/resources/previews/071/366/358/non_2x/three-glasses-of-lemonade-with-lime-slices-and-mint-leaves-free-photo.jpg", tags: ["beverage", "non-spicy", "chef"] },
                     { code: "187", name: "Sunset Orange", price: "50", desc: "Orange sunset cocktail", image: "https://static.vecteezy.com/system/resources/previews/073/573/312/non_2x/vibrant-layered-cocktail-garnished-with-citrus-and-herbs-rests-on-a-dark-bar-surface-free-photo.jpeg", tags: ["beverage", "non-spicy"] },
                     { code: "188", name: "Fruit Punch", price: "70", desc: "Mixed fruit punch", image: "https://static.vecteezy.com/system/resources/previews/073/572/208/non_2x/tall-glass-of-refreshing-red-fruit-beverage-sits-surrounded-by-fresh-whole-and-cut-fruits-on-a-wooden-surface-free-photo.jpeg", tags: ["beverage", "non-spicy"] }
@@ -2406,7 +2424,7 @@ Whether you're here for a quick bite, a special dinner, or a night of singing wi
             "Main Dishes": {
                 duration: "30-60 minutes",
                 items: [
-                    { code: "303", name: "Tuna fried Rice", price: "60", desc: "Fried rice with tuna", image: "https://static.vecteezy.com/system/resources/previews/073/353/211/large_2x/savory-cooked-rice-mixed-with-vegetables-and-egg-served-on-a-white-plate-against-a-dark-background-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
+                    { code: "303", name: "Tuna Fried Rice", price: "60", desc: "Fried rice with tuna", image: "https://static.vecteezy.com/system/resources/previews/073/353/211/large_2x/savory-cooked-rice-mixed-with-vegetables-and-egg-served-on-a-white-plate-against-a-dark-background-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
                     { code: "304", name: "Chicken Fried Rice", price: "60", desc: "Fried rice with chicken", image: "https://static.vecteezy.com/system/resources/previews/073/353/217/large_2x/savory-stir-fried-rice-with-pieces-of-cooked-poultry-served-on-a-dark-plate-free-photo.jpeg", tags: ["main", "non-spicy"] },
                     { code: "305", name: "Valhomas Fried Rice", price: "60", desc: "Fried rice with valhomas", image: "https://static.vecteezy.com/system/resources/previews/073/353/659/non_2x/savory-poultry-and-vegetable-seasoned-rice-steams-atop-a-dark-platter-viewed-from-above-free-photo.jpeg", tags: ["main", "seafood", "non-spicy"] },
                     { code: "306", name: "Beef Fried Rice", price: "60", desc: "Fried rice with beef", image: "https://static.vecteezy.com/system/resources/previews/073/352/820/large_2x/steaming-portion-of-savory-fried-rice-with-meat-and-egg-served-on-a-white-dish-free-photo.jpeg", tags: ["main", "non-spicy"] },
@@ -2429,7 +2447,7 @@ Whether you're here for a quick bite, a special dinner, or a night of singing wi
                     { code: "323", name: "Valhomas Kohthuroshi", price: "60", desc: "Kohthuroshi with valhomas", image: "https://lonumedhu.com/sites/default/files/kothu.jpg", tags: ["main", "seafood", "spicy"] },
                     { code: "324", name: "Beef Kohthuroshi", price: "60", desc: "Kohthuroshi with beef", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H-1024x682.jpg", tags: ["main", "spicy"] },
                     { code: "325", name: "Mix Kohthuroshi", price: "80", desc: "Kohthuroshi with mixed ingredients", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H2-1024x683.jpg", tags: ["main", "spicy", "chef"] },
-                    { code: "326", name: "Sea food Kohthuroshi", price: "110", desc: "Kohthuroshi with seafood", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H8.jpg", tags: ["main", "seafood", "premium"] },
+                    { code: "326", name: "Sea Food Kohthuroshi", price: "110", desc: "Kohthuroshi with seafood", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H8.jpg", tags: ["main", "seafood", "premium"] },
                     { code: "327", name: "Breeze View Special Mix Sea Food Kohthuroshi", price: "140", desc: "Special seafood kohthuroshi mix", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H7.jpg", tags: ["main", "seafood", "premium", "chef"] },
                     { code: "328", name: "Chili Chicken (portion)", price: "70", desc: "Spicy chicken portion", image: "https://static.vecteezy.com/system/resources/previews/070/274/818/large_2x/delicious-savory-sizzling-stir-fry-with-steaming-aromas-free-photo.jpg", tags: ["main", "spicy", "chef"] },
                     { code: "329", name: "Grilled Chicken (portion)", price: "70", desc: "Grilled chicken portion", image: "https://static.vecteezy.com/system/resources/previews/047/976/100/non_2x/grilled-chicken-breast-with-arugula-and-tomatoes-on-a-plate-free-photo.jpg", tags: ["main", "non-spicy", "chef"] },
@@ -2476,14 +2494,11 @@ Whether you're here for a quick bite, a special dinner, or a night of singing wi
             "Signature Dishes": {
                 duration: "20-45 minutes",
                 items: [
-                    { code: "500", name: "Tuna Pizza", price: "120", desc: "Fresh tuna with mozzarella, cherry tomatoes, and herbs on thin crust", image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "seafood", "premium", "spicy"], badge: "Chef's Pick" },
-                    { code: "501", name: "Chicken Biryani", price: "95", desc: "Fragrant basmati rice with tender chicken and aromatic spices", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["spicy", "chef", "premium"], badge: "Popular" },
-                    { code: "502", name: "Seafood Platter", price: "140", desc: "Grilled lobster, prawns, fish with garlic butter and lemon", image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["seafood", "premium", "chef"], badge: "Premium" },
-                    { code: "503", name: "Vegetable Curry", price: "60", desc: "Seasonal vegetables in coconut curry with aromatic spices", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian", "spicy"], badge: "Healthy" },
-                    { code: "504", name: "Tandoori Chicken", price: "130", desc: "Half chicken marinated in yogurt and spices, clay oven roasted", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["chef", "spicy", "premium"], badge: "Signature" },
-                    { code: "505", name: "Avocado Salad", price: "55", desc: "Fresh avocado, cherry tomatoes, mixed greens with lemon dressing", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["vegetarian"], badge: "Fresh" },
-                    { code: "506", name: "Lamb Chops", price: "150", desc: "Grilled lamb chops with mint sauce and roasted vegetables", image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["premium", "chef"], badge: "Premium" },
-                    { code: "507", name: "Chocolate Milkshake", price: "55", desc: "Rich chocolate milkshake with whipped cream and chocolate shavings", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", tags: ["beverage", "vegetarian"], badge: "Sweet" }
+                    { code: "186", name: "Breeze View Passiflora", price: "100", desc: "Special passion fruit cocktail", image: "https://static.vecteezy.com/system/resources/previews/071/366/358/non_2x/three-glasses-of-lemonade-with-lime-slices-and-mint-leaves-free-photo.jpg" },
+                    { code: "309", name: "Breeze View special Sea Food mix rice", price: "140", desc: "Special seafood rice mix", image: "https://assets.epicurious.com/photos/63ef9f657c3e98834ec8645e/1:1/w_2560%2Cc_limit/Paella_RECIPE_021523_47427.jpg" },
+                    { code: "319", name: "Breeze View Special Sea Food Mix Noodles", price: "140", desc: "Special seafood noodle mix", image: "https://omnivorescookbook.com/wp-content/uploads/2020/12/201029_XO-Fried-Noodles_1.jpg" },
+                    { code: "327", name: "Breeze View Special Mix Sea Food Kohthuroshi", price: "140", desc: "Special seafood kohthuroshi mix", image: "https://kravingsfoodadventures.com/wp-content/uploads/2020/07/ChickenKuthuRoti-H7.jpg" },
+
                 ]
             }
         };
